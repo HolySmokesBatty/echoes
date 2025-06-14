@@ -278,7 +278,7 @@ const scenes = [
 ];
 
 function getRandomScene() {
-    const randomIndex = Math.floor(Math.random() * scenes.length);
+    const randomIndex = Math.floor(getRandom() * scenes.length);
     return scenes[randomIndex];
 }
 
@@ -299,10 +299,10 @@ function selectSceneBasedOnTerrain(x, y, map, scenesArray) {
     }
 
     // Add randomness to occasionally place different terrains
-    if (Math.random() < 0.1) {
+    if (getRandom() < 0.1) {
         const randomTerrains = ['forest', 'field', 'water', 'mountain', 'ruins'];
-        const randomTerrain = randomTerrains[Math.floor(Math.random() * randomTerrains.length)];
-        return getScenesByTerrain(randomTerrain)[Math.floor(Math.random() * getScenesByTerrain(randomTerrain).length)];
+        const randomTerrain = randomTerrains[Math.floor(getRandom() * randomTerrains.length)];
+        return getScenesByTerrain(randomTerrain)[Math.floor(getRandom() * getScenesByTerrain(randomTerrain).length)];
     }
 
     const terrainCounts = neighboringTerrains.reduce((acc, terrain) => {
@@ -313,7 +313,7 @@ function selectSceneBasedOnTerrain(x, y, map, scenesArray) {
     const mostCommonTerrain = Object.keys(terrainCounts).reduce((a, b) => terrainCounts[a] > terrainCounts[b] ? a : b, null);
 
     const availableScenes = getScenesByTerrain(mostCommonTerrain);
-    return availableScenes.length > 0 ? availableScenes[Math.floor(Math.random() * availableScenes.length)] : getRandomScene();
+    return availableScenes.length > 0 ? availableScenes[Math.floor(getRandom() * availableScenes.length)] : getRandomScene();
 }
 
 function isPathNeighbor(x, y, map) {

@@ -84,7 +84,7 @@ const cavernsScenes = [
 ];
 
 function getRandomElement(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+    return arr[Math.floor(getRandom() * arr.length)];
 }
 
 function getDungeonEntrance(dungeonType) {
@@ -105,7 +105,7 @@ function getDungeonScenes(dungeonType) {
 
 function generateDungeon() {
     // Generate a unique seed for this dungeon
-    const dungeonSeed = Date.now().toString() + Math.random().toString();
+    const dungeonSeed = Date.now().toString() + getRandom().toString();
     const rng = new Math.seedrandom(dungeonSeed); // Initialize rng correctly
 
     const dungeonType = rng() < 0.5 ? 'ruins' : 'caverns';
@@ -154,7 +154,7 @@ function generateDungeon() {
     // Place tiles based on dungeon type, similar to overworld scene placement
     fillDungeonScenes(dungeonMap, dungeonScenesArray, dungeonType, rng);
 
-    const dungeonId = `dungeon_${Date.now()}_${Math.floor(Math.random()*1e6)}`; // Unique ID with random component
+    const dungeonId = `dungeon_${Date.now()}_${Math.floor(getRandom()*1e6)}`; // Unique ID with random component
 
     dungeons[dungeonId] = {
         type: dungeonType,
@@ -412,7 +412,7 @@ function triggerDungeonEvent() {
     }
 
     // Introduce a random chance for the event to trigger
-    const eventChance = Math.random();
+    const eventChance = getRandom();
     if (eventChance < 0.3) { // 30% chance to trigger an event (adjust as needed)
         const event = getRandomEventFromDungeon(scene.terrain); // Call the function from events.js
         if (!event) {

@@ -1,3 +1,24 @@
+let rng = Math.random;
+let currentSeed = null;
+
+function setRandomSeed(seed) {
+    currentSeed = seed;
+    rng = new Math.seedrandom(seed);
+}
+
+function resetRandomSeed() {
+    currentSeed = null;
+    rng = Math.random;
+}
+
+function getCurrentSeed() {
+    return currentSeed;
+}
+
+function getRandom() {
+    return rng();
+}
+
 function getTiersByPlayerLevel(level) {
     if (level >= 1 && level <= 4) {
         return [1];
@@ -13,12 +34,12 @@ function getTiersByPlayerLevel(level) {
 }
 
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(getRandom() * (max - min + 1)) + min;
 }
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(getRandom() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;

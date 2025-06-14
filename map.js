@@ -133,7 +133,7 @@ function distributeDungeons(maxDungeons) {
         const x = getRandomInt(1, MAP_SIZE - 2);
         const y = getRandomInt(1, MAP_SIZE - 2);
         if (map[y][x] === '.') {
-            const dungeonSeed = Date.now().toString() + Math.random().toString();
+            const dungeonSeed = Date.now().toString() + getRandom().toString();
             const dungeonId = generateDungeon(dungeonSeed);  // Pass the unique seed
 
             const dungeon = dungeons[dungeonId]; // Retrieve the dungeon object using the ID
@@ -418,7 +418,7 @@ function displayScene(x, y) {
     const storedScene = scenesArray[y][x];
     console.log("Current Scene:", storedScene);  // Properly log the current scene
     const terrain = storedScene ? storedScene.terrain : 'floor';
-    const isEvent = Math.random() < 0.3;
+    const isEvent = getRandom() < 0.3;
 
     // Handle town scenes
     if (storedScene && storedScene.type === 'town') {

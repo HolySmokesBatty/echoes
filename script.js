@@ -219,6 +219,8 @@ function startGame() {
         return;
     }
 
+    setRandomSeed(Date.now().toString());
+
     isCharacterCreated = true;
     enableControlWindow();
     document.querySelector('.info-window').style.visibility = 'visible';
@@ -366,7 +368,7 @@ function displayCurrentScene() {
 
     if (!isLoadingGame && isCharacterCreated) {
         // Only trigger events if the game is not being loaded and character is created
-        const isEvent = Math.random() < 0.3;
+        const isEvent = getRandom() < 0.3;
         if (isEvent && lastEventTriggered !== 'event') {
             const event = getRandomEvent();
             currentScene = { ...event, type: 'event' };
@@ -403,14 +405,14 @@ function showScreen(screen) {
     switch (screen) {
         case 'default':
             content = 'Welcome to Echoes of The Darkwood';
-            if (Math.random() < 0.3) {
+            if (getRandom() < 0.3) {
                 const event = getRandomEvent();
                 content = `
                     <h2>${event.name}</h2>
                     <p>${event.description}</p>
                 `;
                 applyEvent(event);
-            } else if (Math.random() < 0.2) {
+            } else if (getRandom() < 0.2) {
                 const town = generateTown();
                 content = `
                     <h2>Welcome to ${town.name}</h2>
@@ -872,6 +874,8 @@ function restartGame() {
     const playerName = playerStats.name; // Retain the player's name
     const playerClass = playerStats.class; // Retain the player's class
 
+    setRandomSeed(Date.now().toString());
+
     // Reinitialize player stats with the retained name and class
     initializePlayerStats(playerName, playerClass);
 
@@ -923,7 +927,7 @@ function restartGame() {
 
 // Define the getRandomValue function
 function getRandomValue(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(getRandom() * (max - min + 1)) + min;
 }
 
 function updatePlayerSkills() {

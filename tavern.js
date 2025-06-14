@@ -136,13 +136,13 @@ const tavernScenes = [
 ];
 
 function getRandomCharacter() {
-    const name = names[Math.floor(Math.random() * names.length)];
-    const profession = professions[Math.floor(Math.random() * professions.length)];
+    const name = names[Math.floor(getRandom() * names.length)];
+    const profession = professions[Math.floor(getRandom() * professions.length)];
     return { name: `${name} the ${profession}`, description: `${name} is a ${profession.toLowerCase()} in the town.` };
 }
 
 function getRandomGossip() {
-    const randomIndex = Math.floor(Math.random() * gossips.length);
+    const randomIndex = Math.floor(getRandom() * gossips.length);
     const conversation = gossips[randomIndex];
 
     // Determine the number of speakers needed
@@ -162,7 +162,7 @@ function getRandomGossip() {
 }
 
 function getRandomTavernScene() {
-    return tavernScenes[Math.floor(Math.random() * tavernScenes.length)];
+    return tavernScenes[Math.floor(getRandom() * tavernScenes.length)];
 }
 
 function enterTavern() {

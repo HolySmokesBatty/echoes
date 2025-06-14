@@ -248,21 +248,21 @@ organizeItems();
 function getRandomItemByTier(tier) {
     const tierItems = itemsByTier[tier] || [];
     if (tierItems.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * tierItems.length);
+    const randomIndex = Math.floor(getRandom() * tierItems.length);
     return tierItems[randomIndex];
 }
 
 function getRandomItemByType(type) {
     const typeItems = itemsByType[type] || [];
     if (typeItems.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * typeItems.length);
+    const randomIndex = Math.floor(getRandom() * typeItems.length);
     return typeItems[randomIndex];
 }
 
 function getRandomItemByTierAndType(tiers, excludeTypes = []) {
     const tierItems = items.filter(item => tiers.includes(item.tier) && !excludeTypes.some(type => item.types.includes(type)));
     if (!tierItems.length) return null;
-    return tierItems[Math.floor(Math.random() * tierItems.length)];
+    return tierItems[Math.floor(getRandom() * tierItems.length)];
 }
 
 function getItemsExcludingTypes(excludedTypes) {
@@ -275,10 +275,10 @@ function getRandomItems(min, max, tiers = [], types = []) {
     for (let i = 0; i < itemCount; i++) {
         let item = null;
         if (tiers.length > 0) {
-            const tier = tiers[Math.floor(Math.random() * tiers.length)];
+            const tier = tiers[Math.floor(getRandom() * tiers.length)];
             item = getRandomItemByTier(tier);
         } else if (types.length > 0) {
-            const type = types[Math.floor(Math.random() * types.length)];
+            const type = types[Math.floor(getRandom() * types.length)];
             item = getRandomItemByType(type);
         }
         if (item && !item.types.includes("Currency")) {
@@ -289,6 +289,6 @@ function getRandomItems(min, max, tiers = [], types = []) {
 }
 
 function getRandomCoin() {
-    return coins[Math.floor(Math.random() * coins.length)];
+    return coins[Math.floor(getRandom() * coins.length)];
 }
 

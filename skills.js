@@ -9,11 +9,11 @@ const skills = {
                 const damage = Math.floor(combat.getModifiedStat(player, 'STR') * 1.2);
                 const stunChance = 0.2;
                 const criticalHitChance = Math.min(combat.getModifiedStat(player, 'LCK') / 100, 0.5);
-                const isCritical = Math.random() < criticalHitChance;
+                const isCritical = getRandom() < criticalHitChance;
                 
                 let message = `You bash the enemy with your shield for ${damage} damage.`;
                 
-                if (isCritical || Math.random() < stunChance) {
+                if (isCritical || getRandom() < stunChance) {
                     combat.applyEffect('Stun', enemy, 1);
                     message += " The enemy is stunned!";
                 }
@@ -53,7 +53,7 @@ const skills = {
             execute: (player, enemy) => {
                 let damage = Math.round(combat.getModifiedStat(player, 'STR') * 1.5);
                 const criticalBonus = 0.6;
-                const isCritical = Math.random() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
+                const isCritical = getRandom() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
                 if (isCritical) {
                     damage *= 2;
                 }
@@ -144,7 +144,7 @@ const skills = {
             execute: (player, enemy) => {
                 const damage = Math.round(combat.getModifiedStat(player, 'STR') * 2);
                 const criticalBonus = 0.75;
-                const isCritical = Math.random() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
+                const isCritical = getRandom() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
                 const finalDamage = isCritical ? damage * 2 : damage;
                 return { damage: finalDamage, message: `Assassinate deals ${finalDamage} damage with ${isCritical ? "a critical hit" : "no critical hit"}.` };
             }
@@ -160,7 +160,7 @@ const skills = {
                 const damage = Math.floor(combat.getModifiedStat(player, 'ARC') * 1.2);
                 const burnChance = 0.5;
                 let message = `You hurl a fireball at the enemy for ${damage} damage.`;
-                if (Math.random() < burnChance) {
+                if (getRandom() < burnChance) {
                     combat.applyEffect('Burn', enemy, 2);
                     message += " The enemy is burning!";
                 }
@@ -195,7 +195,7 @@ const skills = {
             description: "A powerful bolt of lightning strikes the enemy, dealing high damage with a chance to paralyze.",
             execute: (player, enemy) => {
                 const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 1.5);
-                const isStunned = Math.random() < 0.5;
+                const isStunned = getRandom() < 0.5;
                 if (isStunned) {
                     combat.applyEffect('Stun', enemy, 1);
                 }
@@ -221,7 +221,7 @@ const skills = {
             description: "The Mage calls down a massive meteor to strike the enemy, dealing devastating damage.",
             execute: (player, enemy) => {
                 const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 2);
-                const isBurned = Math.random() < 0.5;
+                const isBurned = getRandom() < 0.5;
                 if (isBurned) {
                     combat.applyEffect('Burn', enemy, 3);
                 }
@@ -280,7 +280,7 @@ const skills = {
             execute: (player, enemy) => {
                 const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 1.5);
                 const criticalBonus = 0.75;
-                const isCritical = Math.random() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
+                const isCritical = getRandom() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
                 const finalDamage = isCritical ? damage * 2 : damage;
                 return { damage: finalDamage, message: `Righteous Fury deals ${finalDamage} damage with ${isCritical ? "a critical hit" : "no critical hit"}.` };
             }
@@ -292,7 +292,7 @@ const skills = {
             description: "The Cleric calls down a divine judgment on the enemy, dealing massive damage with a chance to stun.",
             execute: (player, enemy) => {
                 const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 2);
-                const isStunned = Math.random() < 0.5;
+                const isStunned = getRandom() < 0.5;
                 if (isStunned) {
                     combat.applyEffect('Stun', enemy, 1);
                 }
