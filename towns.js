@@ -80,13 +80,7 @@ function getRandomTown() {
     };
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(getRandom() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
+// shuffleArray is defined in utils.js
 
 function visitInn() {
     const contentWindow = document.getElementById('content-window');
