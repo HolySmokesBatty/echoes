@@ -19,3 +19,15 @@ following steps demonstrate how to verify that dungeon quest events, such as
 
 These steps confirm that dungeon quest events are included when their
 corresponding quest is active.
+
+## Contributing
+
+Before submitting changes, make sure to install dependencies and run the linter and test suite:
+
+```bash
+npm install
+npm run lint
+npm test
+```
+
+This helps keep the codebase consistent and ensures tests continue to pass.
