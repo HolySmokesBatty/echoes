@@ -10,19 +10,6 @@ const directions = [
     { name: 'E', dx: 1, dy: 0 }
 ];
 
-function resetControlButtons() {
-    const controlButtons = document.querySelectorAll('.control-button');
-    controlButtons.forEach(button => {
-        const originalText = button.getAttribute('data-original-text');
-        const originalOnclick = button.getAttribute('data-original-onclick');
-        if (originalText && originalOnclick) {
-            button.innerText = originalText;
-            button.setAttribute('onclick', originalOnclick);
-            button.removeAttribute('data-original-text');
-            button.removeAttribute('data-original-onclick');
-        }
-    });
-}
 
 function generateMap() {
     const maxTowns = 20;
