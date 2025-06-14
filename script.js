@@ -86,7 +86,6 @@ let currentScene = GameState.currentScene;
 let previousScreen = GameState.previousScreen;
 let lastEventTriggered = GameState.lastEventTriggered;
 let isLoadingGame = GameState.isLoadingGame;
-let equippedItems = GameState.equippedItems;
 
 function checkFirstVisit() {
     if (!localStorage.getItem('hasVisited')) {
@@ -254,7 +253,7 @@ function startGame() {
     // Initialize player stats, inventory, and equipment
     initializePlayerStats(playerName, playerClass);
     inventory = []; // Clear the inventory
-    equippedItems = []; // Clear the equipment inventory if it exists
+    GameState.equippedItems = { weapon: null, armor: null }; // Reset equipped items
     generateMap(); // Ensure map is generated here
     displayMap(); // Display map after generating
     updateMovementButtons();
@@ -558,23 +557,23 @@ function getSkillsContent() {
 
 function getEquipmentContent() {
     let equipmentHtml = '<div class="left-justify"><h2>Equipment</h2><ul>';
-    if (equippedItems.weapon || equippedItems.armor) {
-        if (equippedItems.weapon) {
+    if (GameState.equippedItems.weapon || GameState.equippedItems.armor) {
+        if (GameState.equippedItems.weapon) {
             equipmentHtml += `
                 <li>
-                    <strong>${equippedItems.weapon.name}</strong><br>
-                    Attribute: ${equippedItems.weapon.attribute}<br>
-                    Special: ${equippedItems.weapon.special ? equippedItems.weapon.special : "None"}<br>
+                    <strong>${GameState.equippedItems.weapon.name}</strong><br>
+                    Attribute: ${GameState.equippedItems.weapon.attribute}<br>
+                    Special: ${GameState.equippedItems.weapon.special ? GameState.equippedItems.weapon.special : "None"}<br>
                     <button onclick="unequipItem('weapon')">Unequip</button>
                 </li>
             `;
         }
-        if (equippedItems.armor) {
+        if (GameState.equippedItems.armor) {
             equipmentHtml += `
                 <li>
-                    <strong>${equippedItems.armor.name}</strong><br>
-                    Attribute: ${equippedItems.armor.attribute}<br>
-                    Special: ${equippedItems.armor.special ? equippedItems.armor.special : "None"}<br>
+                    <strong>${GameState.equippedItems.armor.name}</strong><br>
+                    Attribute: ${GameState.equippedItems.armor.attribute}<br>
+                    Special: ${GameState.equippedItems.armor.special ? GameState.equippedItems.armor.special : "None"}<br>
                     <button onclick="unequipItem('armor')">Unequip</button>
                 </li>
             `;
@@ -914,8 +913,8 @@ function restartGame() {
     // Reset inventory and equipmentInventory by clearing their contents
     inventory.length = 0;
     equipmentInventory.length = 0;
-    equippedItems.armor = null;
-    equippedItems.weapon = null;
+    GameState.equippedItems.armor = null;
+    GameState.equippedItems.weapon = null;
 
     // Clear current dungeon data
     currentDungeon = null;
