@@ -33,4 +33,5 @@ test('showStartScreen renders menu and resets state', () => {
   const content = dom.window.document.getElementById('content-window').innerHTML;
   expect(content).toMatch('New Game');
   expect(dom.window.GameState.isCharacterCreated).toBe(false);
+  expect(dom.window.GameState.lastEventTriggered).toBe(null);
 });

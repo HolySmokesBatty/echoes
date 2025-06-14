@@ -126,6 +126,8 @@ function showStartScreen() {
     GameState.currentScene = currentScene;
     previousScreen = null;
     GameState.previousScreen = previousScreen;
+    lastEventTriggered = null;
+    GameState.lastEventTriggered = lastEventTriggered;
 
     const contentWindow = document.getElementById('content-window');
     disableControlWindow();
