@@ -117,6 +117,16 @@ function closeInfoModal() {
 
 // Character Creation
 function showStartScreen() {
+    // Reset basic game state values when returning to the start screen
+    isCharacterCreated = false;
+    GameState.isCharacterCreated = isCharacterCreated;
+    eventInProgress = false;
+    GameState.eventInProgress = eventInProgress;
+    currentScene = null;
+    GameState.currentScene = currentScene;
+    previousScreen = null;
+    GameState.previousScreen = previousScreen;
+
     const contentWindow = document.getElementById('content-window');
     disableControlWindow();
     contentWindow.innerHTML = `
