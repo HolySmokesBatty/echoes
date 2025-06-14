@@ -1,6 +1,7 @@
 let events = [];
 let dungeonEvents = [];
 let questEvents = [];
+const eventActions = {};
 
 (function(){
     let data = null;
@@ -23,6 +24,85 @@ let questEvents = [];
     dungeonEvents = data.dungeonEvents;
     questEvents = data.questEvents;
 })();
+
+function registerEventActions(list) {
+    list.forEach(event => {
+        eventActions[event.name] = () => executeEventEffect(event);
+    });
+}
+
+registerEventActions(events);
+registerEventActions(dungeonEvents);
+registerEventActions(questEvents);
+
+function executeEventEffect(event) {
+    const amount = event.maxAmount ? getRandomInt(event.minAmount || 0, event.maxAmount) : 0;
+    switch (event.effect) {
+        case 'damage': {
+            const { finalAmount } = calculateEventEffect(amount, 'damage');
+            playerStats.HP = Math.max(playerStats.HP - finalAmount, 0);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, `You took ${finalAmount} damage.`);
+            break;
+        }
+        case 'heal': {
+            const { finalAmount } = calculateEventEffect(amount, 'heal');
+            playerStats.HP = Math.min(playerStats.HP + finalAmount, playerStats.maxHP);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, `You recovered ${finalAmount} HP.`);
+            break;
+        }
+        case 'drain_ap': {
+            const { finalAmount } = calculateEventEffect(amount, 'damage');
+            playerStats.AP = Math.max(playerStats.AP - finalAmount, 0);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, `You lost ${finalAmount} AP.`);
+            break;
+        }
+        case 'heal_ap': {
+            const { finalAmount } = calculateEventEffect(amount, 'heal_ap');
+            playerStats.AP = Math.min(playerStats.AP + finalAmount, playerStats.maxAP);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, `You recovered ${finalAmount} AP.`);
+            break;
+        }
+        case 'heal_hp_ap': {
+            const { finalAmount } = calculateEventEffect(amount, 'heal_hp_ap');
+            playerStats.HP = Math.min(playerStats.HP + finalAmount, playerStats.maxHP);
+            playerStats.AP = Math.min(playerStats.AP + finalAmount, playerStats.maxAP);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, `You recovered ${finalAmount} HP and AP.`);
+            break;
+        }
+        case 'damage_hp_ap': {
+            const { finalAmount } = calculateEventEffect(amount, 'damage');
+            playerStats.HP = Math.max(playerStats.HP - finalAmount, 0);
+            playerStats.AP = Math.max(playerStats.AP - finalAmount, 0);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, `You lost ${finalAmount} HP and AP.`);
+            break;
+        }
+        case 'receive item': {
+            const loot = items[getRandomInt(0, items.length - 1)];
+            addItemToInventory({ ...loot });
+            displayEventEffect(event.name, event.description, `You received ${loot.name}.`);
+            break;
+        }
+        case 'combat': {
+            combat.startCombat();
+            break;
+        }
+        case 'treasure_map': {
+            triggerTreasureMapEvent();
+            break;
+        }
+        default:
+            displayEventEffect(event.name, event.description, 'Nothing happens.');
+    }
+    if (event.relatedQuest) {
+        checkQuestCompletion(event);
+    }
+}
 
 
 function triggerTreasureMapEvent() {
@@ -63,7 +143,7 @@ function getRandomEvent(terrain) {
     for (let event of combinedEvents) {
         randomWeight -= (event.weight || 1);
         if (randomWeight <= 0) {
-            return event;
+            return { ...event, action: eventActions[event.name] };
         }
     }
 
@@ -99,7 +179,7 @@ function getRandomEventFromDungeon(terrain) {
     for (let event of combinedEvents) {
         randomWeight -= event.weight;
         if (randomWeight <= 0) {
-            return event;
+            return { ...event, action: eventActions[event.name] };
         }
     }
 

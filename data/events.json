@@ -336,6 +336,13 @@
             "terrain": [
                 "treasury"
             ]
+        },
+        {
+            "name": "Treasure Map",
+            "description": "You follow an old map to a stash of valuables.",
+            "effect": "treasure_map",
+            "weight": 1,
+            "terrain": ["forest", "field"]
         }
     ],
     "questEvents": [
