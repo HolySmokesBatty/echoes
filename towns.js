@@ -1,26 +1,34 @@
-const townPrefixes = [
-    "Green", "Blue", "Red", "White", "Black", "Gold", "Silver", "Iron", "Stone",
-    "Oak", "Pine", "Cedar", "Birch", "Elm", "Ash", "Willow", "Raven", "Eagle",
-    "Dragon", "Wolf", "Bear", "Hawk", "Fox", "Stag", "Lion"
-];
+let townPrefixes = [];
+let townSuffixes = [];
+let smallTownNames = [];
+let mediumTownNames = [];
+let largeTownNames = [];
+let townDescriptions = [];
 
-const townSuffixes = [
-    "dale", "wood", "town", "burg", "ville", "haven", "ford", "field", "port",
-    "bridge", "falls", "ridge", "hill", "vale", "hollow", "stone", "creek",
-    "shore", "peak", "glen", "meadow", "heights", "plains", "cove", "springs"
-];
-
-const smallTownNames = [
-    "Hamlet", "Village", "Crossroads", "Outpost", "Encampment", "Farmstead", "Homestead"
-];
-
-const mediumTownNames = [
-    "Town", "Borough", "Market Town", "Trade Post", "Port Town", "Mining Camp", "Fishing Village"
-];
-
-const largeTownNames = [
-    "City", "Capital", "Fortress", "Stronghold", "Citadel"
-];
+(function(){
+    let data = null;
+    if (typeof TOWNS_DATA !== 'undefined') {
+        data = TOWNS_DATA;
+    } else if (typeof require === 'function') {
+        try {
+            const fs = require('fs');
+            const path = require('path');
+            data = JSON.parse(fs.readFileSync(path.join(__dirname,'data/towns.json'),'utf8'));
+        } catch (e) {}
+    } else if (typeof XMLHttpRequest !== 'undefined') {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'data/towns.json', false);
+        xhr.send(null);
+        if (xhr.status === 200) data = JSON.parse(xhr.responseText);
+    }
+    data = data || {};
+    townPrefixes = data.townPrefixes || [];
+    townSuffixes = data.townSuffixes || [];
+    smallTownNames = data.smallTownNames || [];
+    mediumTownNames = data.mediumTownNames || [];
+    largeTownNames = data.largeTownNames || [];
+    townDescriptions = data.townDescriptions || [];
+})();
 
 const allLocations = [
     { name: "Inn", description: "Rest - Fully restores HP/AP for 20 Coins", visit: visitInn },
@@ -30,19 +38,6 @@ const allLocations = [
     { name: "Arcaneum", description: "Buy/Sell - Sells Gem and Parchment Items", visit: () => visitShop('Arcaneum', 'Arcaneum') },
     { name: "Armory", description: "Buy/Sell - Sells Weapons and Armor from Tier 1 to Tier 3", visit: () => visitShop('Armory', 'Armory') },
     { name: "Blacksmith", description: "Upgrade - Augment Equipment for Coins", visit: visitBlacksmith }
-];
-
-const townDescriptions = [
-    "The ${townType} of ${townName} is known for its bustling marketplace and friendly locals.",
-    "In the heart of the ${townType} of ${townName}, you'll find a quaint tavern where adventurers gather.",
-    "${townName} is a ${townType} surrounded by lush forests and rolling hills.",
-    "The ${townType} of ${townName} is famous for its blacksmith who crafts the finest weapons in the region.",
-    "${townName} is a peaceful ${townType} with a beautiful central square and a grand fountain.",
-    "The ${townType} of ${townName} is nestled by a serene lake, offering stunning views and calm waters.",
-    "Known for its annual festivals, the ${townType} of ${townName} is always filled with joy and laughter.",
-    "${townName}, a ${townType}, is a hub for trade and commerce, attracting merchants from afar.",
-    "The ${townType} of ${townName} is protected by ancient walls and a vigilant guard.",
-    "With its cobblestone streets and historic buildings, ${townName} is a charming ${townType} to explore."
 ];
 
 function getRandomLocations(number) {
@@ -433,4 +428,3 @@ function refreshAllShops() {
             }
         });
     });
-}

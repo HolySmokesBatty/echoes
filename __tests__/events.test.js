@@ -8,13 +8,14 @@ describe('event weighting', () => {
     beforeEach(() => {
         const seedSrc = fs.readFileSync(path.join(__dirname, '../seedrandom.min.js'), 'utf8');
         const utilsSrc = fs.readFileSync(path.join(__dirname, '../utils.js'), 'utf8');
+        const eventsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/events.json'), 'utf8'));
         let eventsSrc = fs.readFileSync(path.join(__dirname, '../events.js'), 'utf8');
         eventsSrc += `\nglobalThis.getRandomEvent = getRandomEvent;\n` +
                      `globalThis.getRandomEventFromDungeon = getRandomEventFromDungeon;\n` +
                      `globalThis.events = events;\n` +
                      `globalThis.dungeonEvents = dungeonEvents;\n` +
                      `globalThis.questEvents = questEvents;`;
-        context = { console };
+        context = { console, EVENTS_DATA: eventsData };
         vm.createContext(context);
         vm.runInContext(seedSrc, context);
         vm.runInContext(utilsSrc, context);
