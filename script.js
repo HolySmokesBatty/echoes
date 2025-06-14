@@ -252,7 +252,8 @@ function startGame() {
 
     // Initialize player stats, inventory, and equipment
     initializePlayerStats(playerName, playerClass);
-    inventory = []; // Clear the inventory
+    inventory = [];
+    GameState.inventory = inventory;
     GameState.equippedItems = { weapon: null, armor: null }; // Reset equipped items
     generateMap(); // Ensure map is generated here
     displayMap(); // Display map after generating
@@ -912,6 +913,7 @@ function restartGame() {
 
     // Reset inventory and equipmentInventory by clearing their contents
     inventory.length = 0;
+    GameState.inventory = inventory;
     equipmentInventory.length = 0;
     GameState.equippedItems.armor = null;
     GameState.equippedItems.weapon = null;

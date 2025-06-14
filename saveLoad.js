@@ -58,7 +58,6 @@ function loadGame() {
         GameState.inventory = loadedInventory;
         inventory = GameState.inventory;
         GameState.equippedItems = loadedEquippedItems || { weapon: null, armor: null };
-        equippedItems = GameState.equippedItems;
         currentScene = loadedCurrentScene;
         GameState.currentScene = currentScene;
         eventInProgress = loadedEventInProgress;

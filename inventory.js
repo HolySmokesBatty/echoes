@@ -1,7 +1,6 @@
 let equipmentInventory = [];
 GameState.inventory = GameState.inventory || [];
 let inventory = GameState.inventory;
-let equippedItems = GameState.equippedItems;
 
 function addItemToInventory(item) {
     const existingItem = inventory.find(i => i.name === item.name);
@@ -15,23 +14,23 @@ function addItemToInventory(item) {
 
 function getEquipmentContent() {
     let equipmentHtml = '<div class="left-justify"><h2>Equipment</h2><ul>';
-    if (equippedItems.weapon || equippedItems.armor) {
-        if (equippedItems.weapon) {
+    if (GameState.equippedItems.weapon || GameState.equippedItems.armor) {
+        if (GameState.equippedItems.weapon) {
             equipmentHtml += `
                 <li>
-                    <strong>${equippedItems.weapon.name}</strong><br>
-                    Attribute: ${equippedItems.weapon.attribute}<br>
-                    Special: ${equippedItems.weapon.special ? equippedItems.weapon.special : "None"}<br>
+                    <strong>${GameState.equippedItems.weapon.name}</strong><br>
+                    Attribute: ${GameState.equippedItems.weapon.attribute}<br>
+                    Special: ${GameState.equippedItems.weapon.special ? GameState.equippedItems.weapon.special : "None"}<br>
                     <button onclick="unequipItem('weapon')">Unequip</button>
                 </li>
             `;
         }
-        if (equippedItems.armor) {
+        if (GameState.equippedItems.armor) {
             equipmentHtml += `
                 <li>
-                    <strong>${equippedItems.armor.name}</strong><br>
-                    Attribute: ${equippedItems.armor.attribute}<br>
-                    Special: ${equippedItems.armor.special ? equippedItems.armor.special : "None"}<br>
+                    <strong>${GameState.equippedItems.armor.name}</strong><br>
+                    Attribute: ${GameState.equippedItems.armor.attribute}<br>
+                    Special: ${GameState.equippedItems.armor.special ? GameState.equippedItems.armor.special : "None"}<br>
                     <button onclick="unequipItem('armor')">Unequip</button>
                 </li>
             `;
@@ -254,17 +253,17 @@ function equipItem(itemName) {
     }
 
     if (item.types && Array.isArray(item.types) && item.types.includes('Weapon')) {
-        if (equippedItems.weapon) {
-            addItemToInventory(equippedItems.weapon);
-            removeEquipmentEffects(equippedItems.weapon);
+        if (GameState.equippedItems.weapon) {
+            addItemToInventory(GameState.equippedItems.weapon);
+            removeEquipmentEffects(GameState.equippedItems.weapon);
         }
-        equippedItems.weapon = { ...item, quantity: 1 }; // Equip one item
+        GameState.equippedItems.weapon = { ...item, quantity: 1 }; // Equip one item
     } else if (item.types && Array.isArray(item.types) && item.types.includes('Armor')) {
-        if (equippedItems.armor) {
-            addItemToInventory(equippedItems.armor);
-            removeEquipmentEffects(equippedItems.armor);
+        if (GameState.equippedItems.armor) {
+            addItemToInventory(GameState.equippedItems.armor);
+            removeEquipmentEffects(GameState.equippedItems.armor);
         }
-        equippedItems.armor = { ...item, quantity: 1 }; // Equip one item
+        GameState.equippedItems.armor = { ...item, quantity: 1 }; // Equip one item
     }
 
     applyEquipmentEffects(item);
@@ -289,11 +288,11 @@ function removeItemFromInventory(item) {
 }
 
 function unequipItem(slot) {
-    const item = equippedItems[slot];
+    const item = GameState.equippedItems[slot];
     if (item) {
         removeEquipmentEffects(item);
         addItemToInventory(item);
-        equippedItems[slot] = null;
+        GameState.equippedItems[slot] = null;
         displayNotification(`You unequipped ${item.name}.`);
         updatePlayerStats(playerStats);
     }
