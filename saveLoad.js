@@ -77,7 +77,12 @@ function loadGame() {
         refreshEquipmentScreen();
 
         // Ensure that the player's position is reflected correctly
-        displayCurrentScene();  // This should now handle the correct placement of 'P'
+        if (currentDungeon) {
+            displayDungeon();
+            displayDungeonScene();
+        } else {
+            displayCurrentScene();  // This should now handle the correct placement of 'P'
+        }
         updateMovementButtons();
         isCharacterCreated = true;
 
