@@ -972,16 +972,3 @@ function calculateNextLevelXp(level) {
     return baseXp * (level * (level / 2));
 }
 
-function getTiersByPlayerLevel(level) {
-    if (level >= 1 && level <= 4) {
-        return [1];
-    } else if (level >= 5 && level <= 9) {
-        return [1, 2];
-    } else if (level >= 10 && level <= 14) {
-        return [1, 2, 3];
-    } else if (level >= 15 && level <= 19) {
-        return [1, 2, 3, 4];
-    } else {
-        return [1, 2, 3, 4, 5];
-    }
-}

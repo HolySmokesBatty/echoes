@@ -292,6 +292,3 @@ function getRandomCoin() {
     return coins[Math.floor(Math.random() * coins.length)];
 }
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
