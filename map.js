@@ -328,6 +328,7 @@ function movePlayerInDungeon(newX, newY) {
             if (targetTile === 'E') {
                 console.log("Player has reached the dungeon entrance/exit");
                 promptDungeonExit();
+                updateMovementButtons();
             } else {
                 displayDungeonScene(); // Display the scene after moving
 
