@@ -166,7 +166,7 @@ function generateDungeon() {
         source: dungeonId // Store the unique dungeon ID
     };
 
-    console.log(`Generated dungeon with ID: ${dungeonId}`); // Logging for debugging
+    debugLog(`Generated dungeon with ID: ${dungeonId}`); // Logging for debugging
 
     return dungeonId; // Ensure the dungeon ID is returned correctly
 }
@@ -306,7 +306,7 @@ function fillDungeonScenes(dungeonMap, dungeonScenesArray, dungeonType) {
 }
 
 function enterDungeon(dungeonId) {
-    console.log(`Entering dungeon with ID: ${dungeonId}`);
+    debugLog(`Entering dungeon with ID: ${dungeonId}`);
     const dungeon = dungeons[dungeonId];
     if (!dungeon) {
         console.error(`Dungeon with ID ${dungeonId} not found.`);
@@ -341,7 +341,7 @@ function promptDungeonExit() {
 }
 
 function exitDungeon() {
-    console.log(`Exiting dungeon with ID: ${currentDungeon}`);
+    debugLog(`Exiting dungeon with ID: ${currentDungeon}`);
     const dungeon = dungeons[currentDungeon];
     if (!dungeon) {
         console.error(`Dungeon with ID ${currentDungeon} not found.`);
@@ -422,7 +422,7 @@ function triggerDungeonEvent() {
 
         applyEvent(event);
     } else {
-        console.log("No event triggered this time.");
+        debugLog("No event triggered this time.");
     }
 }
 

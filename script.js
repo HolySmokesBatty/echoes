@@ -56,11 +56,11 @@ function calculateHealing(item, playerStats, type) {
                                0.1 * playerStats.STR; // Small percentage of relevant stat
     const totalHealing = Math.round(baseHealing + percentageHealing + classBasedHealing);
 
-    console.log(`Calculating Healing for ${item.name}`);
-    console.log(`Base Healing: ${baseHealing}`);
-    console.log(`Percentage Healing: ${percentageHealing}`);
-    console.log(`Class-Based Healing: ${classBasedHealing}`);
-    console.log(`Total Healing: ${totalHealing}`);
+    debugLog(`Calculating Healing for ${item.name}`);
+    debugLog(`Base Healing: ${baseHealing}`);
+    debugLog(`Percentage Healing: ${percentageHealing}`);
+    debugLog(`Class-Based Healing: ${classBasedHealing}`);
+    debugLog(`Total Healing: ${totalHealing}`);
 
     return totalHealing; // Ensure whole number values
 }
@@ -956,7 +956,7 @@ function getRandomValue(min, max) {
 function updatePlayerSkills() {
     const classSkills = skills[playerStats.class] || [];
     playerStats.skills = classSkills.filter(skill => skill.level <= playerStats.level);
-    console.log('Updated player skills:', playerStats.skills);
+    debugLog('Updated player skills:', playerStats.skills);
 }
 
 function levelUpPlayer() {
@@ -992,7 +992,7 @@ function levelUpPlayer() {
     updatePlayerSkills(); // Update skills on level up
     updatePlayerStats(); // Ensure stats are updated in the UI
 
-    console.log(`Player leveled up to level ${playerStats.level}`);
+    debugLog(`Player leveled up to level ${playerStats.level}`);
     displayNotification(`Congratulations! You've reached level ${playerStats.level}.`);
 }
 

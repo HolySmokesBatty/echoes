@@ -1,3 +1,6 @@
+const DEBUG = false;
+function debugLog(...args) { if (DEBUG) { console.log(...args); } }
+
 let rng = Math.random;
 let currentSeed = null;
 

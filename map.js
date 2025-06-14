@@ -127,7 +127,7 @@ function distributeDungeons(maxDungeons) {
             scenesArray[y][x] = { ...dungeon, type: 'dungeon', source: dungeonId }; // Assign the correct scene object
             map[y][x] = 'D';
             dungeonCount++;
-            console.log(`Dungeon generated at (${x}, ${y}) with ID: ${dungeonId} and Seed: ${dungeonSeed}`);
+            debugLog(`Dungeon generated at (${x}, ${y}) with ID: ${dungeonId} and Seed: ${dungeonSeed}`);
         }
     }
 }
@@ -313,7 +313,7 @@ function movePlayerInDungeon(newX, newY) {
             updatePlayerStats();
 
             if (targetTile === 'E') {
-                console.log("Player has reached the dungeon entrance/exit");
+                debugLog("Player has reached the dungeon entrance/exit");
                 promptDungeonExit();
                 updateMovementButtons();
             } else {
@@ -364,7 +364,7 @@ function displayDungeon() {
 }
 
 function promptDungeonEntry(dungeonId) {
-    console.log(`Prompting dungeon entry for dungeon ID: ${dungeonId}`);
+    debugLog(`Prompting dungeon entry for dungeon ID: ${dungeonId}`);
     const dungeon = dungeons[dungeonId];
     if (!dungeon) {
         console.error("Dungeon not found:", dungeonId);
@@ -376,7 +376,7 @@ function promptDungeonEntry(dungeonId) {
         return;
     }
 
-    console.log("Entrance Scene:", entranceScene);
+    debugLog("Entrance Scene:", entranceScene);
 
     const contentWindow = document.getElementById('content-window');
     if (!contentWindow) {
@@ -391,7 +391,7 @@ function promptDungeonEntry(dungeonId) {
         <button onclick="declineDungeonEntry()">Stay Outside</button>
     `;
 
-    console.log("Dungeon entry prompt displayed successfully");
+    debugLog("Dungeon entry prompt displayed successfully");
 }
 
 function declineDungeonEntry() {
@@ -403,7 +403,7 @@ function declineDungeonEntry() {
 function displayScene(x, y) {
     const contentWindow = document.getElementById('content-window');
     const storedScene = scenesArray[y][x];
-    console.log("Current Scene:", storedScene);  // Properly log the current scene
+    debugLog("Current Scene:", storedScene);  // Properly log the current scene
     const terrain = storedScene ? storedScene.terrain : 'floor';
     const isEvent = getRandom() < 0.3;
 
@@ -445,7 +445,7 @@ function displayScene(x, y) {
         `;
         applyEvent(event);
         lastEventTriggered = 'event';
-        console.log("Displaying event:", event);
+        debugLog("Displaying event:", event);
     } 
     // Handle stored scenes (non-dungeon, non-town)
     else if (storedScene) {
@@ -469,7 +469,7 @@ function displayScene(x, y) {
             <p>${randomScene.description}</p>
         `;
         lastEventTriggered = 'scene';
-        console.log("Displaying random scene:", randomScene);
+        debugLog("Displaying random scene:", randomScene);
     }
 }
 

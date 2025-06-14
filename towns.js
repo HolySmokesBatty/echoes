@@ -289,8 +289,8 @@ function sellItem(itemName, sellPrice, shopName, shopType) {
             inventory.splice(inventory.indexOf(item), 1);
         }
         updatePlayerStats(playerStats);
-        console.log("After Purchase - Merchant Name:", currentMerchantName);
-        console.log("After Purchase - Merchant Stock:", currentMerchantStock);
+        debugLog("After Purchase - Merchant Name:", currentMerchantName);
+        debugLog("After Purchase - Merchant Stock:", currentMerchantStock);
         showSellMenu(shopName, shopType);
         displayNotification(`You sold ${itemName} for ${sellPrice} coins.`);
     } else {
@@ -420,7 +420,7 @@ function augmentArmor() {
 }
 
 function refreshAllShops() {
-    console.log("Refreshing all shops' inventories.");
+    debugLog("Refreshing all shops' inventories.");
     scenesArray.forEach(row => {
         row.forEach(scene => {
             if (scene && scene.type === 'town') {
