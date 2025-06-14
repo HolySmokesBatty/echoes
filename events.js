@@ -261,7 +261,7 @@ const events = [
         name: "Hidden Cave",
         description: "You explore a hidden cave.",
         effect: "receive item",
-        weight: 1,
+        weight: 0.5, // Reduced from 1 to offset higher combat weights
         terrain: ["mountain", "forest"],
         action: function() {
             const tiers = getTiersByPlayerLevel(playerStats.level);
@@ -384,7 +384,7 @@ const events = [
         name: "Encounter",
         description: "You encounter a wild beast.",
         effect: "Combat",
-        weight: 5,
+        weight: 6, // Increased from 5 to emphasize random combat encounters
         terrain: ["forest", "field", "path", "mountains", "water", "ruins"],
         action: function () {
             const player = getPlayerStats();
@@ -471,7 +471,7 @@ const questEvents = [
         description: "You encounter a group of goblins causing trouble.",
         effect: "combat",
         terrain: ["forest"],
-        weight: 3,
+        weight: 4, // Boosted to increase likelihood of combat quest
         relatedQuest: "Goblin Menace",
         action: function() {
             if (typeof enemyTiers !== 'undefined' && enemyTiers.Unique) {
@@ -491,7 +491,7 @@ const questEvents = [
         description: "You find a necklace that matches the description from the notice board.",
         effect: "find",
         terrain: ["path", "forest"],
-        weight: 3,
+        weight: 4, // Increased to highlight this major battle
         relatedQuest: "Lost Necklace",
         action: function() {
             // Check luck to determine if the player can collect the necklace without trouble
@@ -524,7 +524,7 @@ const questEvents = [
         description: "You encounter the notorious bandit leader.",
         effect: "combat",
         terrain: ["forest"],
-        weight: 3,
+        weight: 4, // Increased to highlight this major battle
         relatedQuest: "Bandit Leader",
         action: function() {
             if (typeof enemyTiers !== 'undefined' && enemyTiers.Unique) {
@@ -544,7 +544,7 @@ const questEvents = [
         description: "You find the missing child, who appears scared and unsure.",
         effect: "find",
         terrain: ["forest", "field"],
-        weight: 4,
+        weight: 5, // Heavier weight for key combat storyline
         relatedQuest: "Missing Child",
         action: function() {
             const approachOptions = [
@@ -595,7 +595,7 @@ const questEvents = [
         description: "You encounter a pack of wolves attacking travelers.",
         effect: "combat",
         terrain: ["forest", "field"],
-        weight: 3,
+        weight: 4, // Slightly higher chance for this combat quest
         relatedQuest: "Wolves Attack",
         action: function() {
             if (typeof enemyTiers !== 'undefined' && enemyTiers.Unique) {
@@ -909,7 +909,7 @@ const questEvents = [
         description: "You encounter thieves trying to steal an ancient relic.",
         effect: "combat",
         terrain: ["ruins"],
-        weight: 3,
+        weight: 4, // Encourages combat during relic quest
         relatedQuest: "Ancient Relic",
         action: function() {
             if (typeof enemyTiers !== 'undefined' && enemyTiers.Unique) {
@@ -1010,7 +1010,7 @@ const questEvents = [
         description: "The forest is cursed, and a powerful Forest Guardian lurks within.",
         effect: "combat",
         terrain: ["forest"],
-        weight: 4,
+        weight: 5, // Heavier weight for key combat storyline
         relatedQuest: "Cursed Forest",
         action: function() {
             const forestGuardian = enemyTiers.Unique.find(enemy => enemy.name === 'Forest Guardian');
@@ -1026,7 +1026,7 @@ const questEvents = [
         description: "You encounter a spy operating in the area.",
         effect: "combat",
         terrain: ["forest", "field"],
-        weight: 3,
+        weight: 4, // Raised to draw players into spy conflict
         relatedQuest: "Spy in the Wilderness",
         action: function() {
             if (typeof enemyTiers !== 'undefined' && enemyTiers.Unique) {
@@ -1127,7 +1127,7 @@ const questEvents = [
         description: "You investigate the source of the strange lights.",
         effect: "find",
         terrain: ["forest", "field"],
-        weight: 3,
+        weight: 4, // Increased to make prisoner battles more common
         relatedQuest: "Strange Lights",
         action: function() {
             const relatedQuestName = this.relatedQuest; // Capture the correct context of `this`
@@ -1192,7 +1192,7 @@ const questEvents = [
         description: "You encounter an escaped prisoner.",
         effect: "combat",
         terrain: ["forest", "field"],
-        weight: 3,
+        weight: 4, // Increased to make prisoner battles more common
         relatedQuest: "Escaped Prisoner",
         action: function() {
             if (typeof enemyTiers !== 'undefined' && enemyTiers.Unique) {
@@ -1382,7 +1382,7 @@ const questEvents = [
         description: "A deadly plague is sweeping through the village. You must gather the rare ingredients needed to prepare the cure.",
         effect: "cure",
         terrain: ["forest", "mountain"],
-        weight: 5,
+        weight: 6, // Greater odds for this pivotal dungeon fight
         relatedQuest: "Plague Cure Ingredients",
         action: function() {
             const relatedQuestName = this.relatedQuest; // Capture the correct context of `this`
@@ -1464,7 +1464,7 @@ const questEvents = [
         description: "You encounter a nest of venomous arachnids.",
         effect: "combat",
         terrain: ["forest", "mountain", "ruins"],
-        weight: 3,
+        weight: 4, // More weight to keep players on their toes
         relatedQuest: "Arachnid Nest",
         action: function() {
             const venomousArachnid = enemyTiers.Unique.find(enemy => enemy.name === 'Venomous Arachnid');
@@ -1557,7 +1557,7 @@ const questEvents = [
         description: "You enter the deepest chamber of the cavern. A massive guardian blocks your path.",
         effect: "combat",
         terrain: ["cave", "treasury"],
-        weight: 5,
+        weight: 6, // Greater odds for this pivotal dungeon fight
         relatedQuest: "Cavern Guardian",
         action: function() {
             displayNotification("The guardian roars, ready to defend its territory. Prepare for battle!");
@@ -1651,7 +1651,7 @@ const dungeonEvents = [
         name: "Encounter",
         description: "You encounter a wild beast.",
         effect: "Combat",
-        weight: 5,
+        weight: 6, // Boosted to keep dungeon runs action-packed
         terrain: ["ruin", "cave", "water", "treasury", "altar", "rubble"],
         action: function () {
             const player = getPlayerStats();
