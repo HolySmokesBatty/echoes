@@ -44,7 +44,7 @@ const combat = {
         } else {
             this.enemy.maxHP = Math.floor(this.enemy.maxHP);
         }
-        console.log('Initialized Combat:', this.player, this.enemy);
+        debugLog('Initialized Combat:', this.player, this.enemy);
     },
 
     startCombat(enemy = null, quest = null) {
@@ -106,7 +106,7 @@ const combat = {
         }
     
         // Make sure the availableTiers array is constructed correctly
-        console.log("Available tiers based on player level:", playerLevel, availableTiers);
+        debugLog("Available tiers based on player level:", playerLevel, availableTiers);
     
         // Choose a random enemy
         const randomEnemy = availableTiers[Math.floor(getRandom() * availableTiers.length)];
@@ -119,7 +119,7 @@ const combat = {
         const scalingFactor = 0.5 + (levelWithinTier - 1) * 0.1 + tierBonus;
     
         // Debugging to see which enemy is selected
-        console.log("Selected enemy:", randomEnemy, "with adjective:", randomAdjective);
+        debugLog("Selected enemy:", randomEnemy, "with adjective:", randomAdjective);
     
         return {
             ...randomEnemy,
@@ -533,7 +533,7 @@ const combat = {
     },
 
     appendCombatMessage(message) {
-        console.log(message);
+        debugLog(message);
         this.combatLog.push(message);
         this.updateCombatMessagesDisplay();
     },

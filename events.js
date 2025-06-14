@@ -1879,7 +1879,7 @@ function getRandomEventFromDungeon(terrain) {
 
 function applyEvent(event) {
     if (event && typeof event.action === 'function') {
-        console.log("Applying event:", event.name);
+        debugLog("Applying event:", event.name);
         event.action();
         if (playerStats.HP <= 0) { // Check if HP is 0 or below after event action
             gameOver();

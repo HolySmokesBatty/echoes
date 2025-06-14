@@ -88,7 +88,7 @@ function displayMerchantSellScreen() {
 
 function merchantSellItem(itemName, sellPrice) {
     itemName = itemName.replace(/\\'/g, "'");
-    console.log("Selling Item:", itemName, "for", sellPrice, "coins");
+    debugLog("Selling Item:", itemName, "for", sellPrice, "coins");
     const item = inventory.find(i => i.name === itemName);
     if (item) {
         playerStats.coins += sellPrice;

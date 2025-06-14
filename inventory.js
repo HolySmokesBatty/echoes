@@ -169,16 +169,16 @@ function refreshInventoryScreen() {
 }
 
 function parseEffect(effect) {
-    console.log("Parsing effect:", effect); // Debugging statement
+    debugLog("Parsing effect:", effect); // Debugging statement
     const match = effect.match(/(heal_hp|heal_ap):?(\d+%?)/);
     if (!match) {
-        console.log("Effect parsing failed:", effect); // Debugging statement
+        debugLog("Effect parsing failed:", effect); // Debugging statement
         return { type: null, amount: NaN };
     }
 
     const type = match[1];
     const value = match[2].includes('%') ? parseFloat(match[2]) / 100 : parseFloat(match[2]);
-    console.log(`Effect type: ${type}, Effect value: ${value}`); // Debugging statement
+    debugLog(`Effect type: ${type}, Effect value: ${value}`); // Debugging statement
     return { type, amount: value };
 }
 
