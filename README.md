@@ -20,7 +20,13 @@ Echoes is a lightweight browser RPG written in vanilla JavaScript. The game feat
 
 ## Testing
 
-Unit tests are written with Jest and can be run with:
+Before running the tests for the first time, install the project's dependencies:
+
+```bash
+npm install
+```
+
+Internet access is required for this installation. Afterward, run the tests with:
 
 ```bash
 npm test
