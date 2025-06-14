@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of The Darkwood</title>
+    <meta name="description" content="Echoes of The Darkwood - an adventure RPG game.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="game-title">Echoes of The Darkwood</h1>
+    <div class="game-container">
+        <div class="info-window">
+            <div>
+                <span>Name:</span>
+                <span id="player-name"></span>
+            </div>
+            <div>
+                <span>Level:</span>
+                <span id="player-level"></span>
+            </div>
+            <div>
+                <span>HP:</span>
+                <span id="player-hp"></span>
+            </div>
+            <div>
+                <span>AP:</span>
+                <span id="player-ap"></span>
+            </div>
+            <div>
+                <span>EXP:</span>
+                <span id="player-xp"></span>
+            </div>
+            <div>
+                <span>Coins:</span>
+                <span id="player-coins"></span>
+            </div>
+        </div>
+        <div class="content-window" id="content-window">
+            <p>Welcome to Echoes of The Darkwood</p>
+            <!-- Character creation form -->
+            <div id="character-creation" style="display: none;">
+                <h2>Create Your Character</h2>
+                <label for="player-name-input">Name:</label>
+                <input type="text" id="player-name-input" placeholder="Enter your name" oninput="checkCharacterCreation()">
+                <h3>Choose Your Class</h3>
+                <button type="button" onclick="selectClass('Knight')">Knight</button>
+                <button type="button" onclick="selectClass('Rogue')">Rogue</button>
+                <button type="button" onclick="selectClass('Mage')">Mage</button>
+                <button type="button" onclick="selectClass('Cleric')">Cleric</button>
+                <button id="start-game-button" type="button" onclick="startGame()" disabled>Start Game</button>
+                <button type="button" onclick="showStartScreen()">Back</button>
+                <div id="class-details" style="margin-top: 10px;">
+                    <h3>Class Details</h3>
+                    <p>Select a class to see its details.</p>
+                </div>
+            </div>
+        </div>
+        <div class="control-window" id="control-window">
+            <div class="control-button" onclick="showScreen('statsSkills')">STATS</div>
+            <div class="control-button movement" data-dir="N" onclick="movePlayer('N')">N</div>
+            <div class="control-button" onclick="showScreen('quests')">QUESTS</div>
+            <div class="control-button movement" data-dir="W" onclick="movePlayer('W')">W</div>
+            <div class="control-button" onclick="camp()" id="camp-button" class="disabled">CAMP</div>
+            <div class="control-button movement" data-dir="E" onclick="movePlayer('E')">E</div>
+            <div class="control-button" onclick="showScreen('map')">MAP</div>
+            <div class="control-button movement" data-dir="S" onclick="movePlayer('S')">S</div>
+            <div class="control-button" onclick="showScreen('inventory')">INVENTORY</div>
+            <div class="control-button menu" onclick="confirmSaveGame()">SAVE</div>
+            <div class="control-button menu" onclick="confirmQuitGame()">QUIT</div>
+            <div class="control-button menu" onclick="confirmLoadGame()">LOAD</div>
+        </div>        
+    </div>
+
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to Echoes of The Darkwood</h2>
+            <p>Echoes of The Darkwood is a text driven “Random RPG”. Largely inspired by computer gaming from the 80s. There are no graphics in Echoes of The Darkwood, everything is presented as text, taking a page from classic text adventures, and grid-based RPGs from the west.</p>
+            <p>Something that really sets Echoes apart from its predecessors and inspirations is that the world is randomly generated. No two games will play the same.</p>
+            <p>Features include:
+            <ul>
+                <li>Four distinct classes, each with their own skills and stat blocks</li>
+                <li>A fully random world</li>
+                <li>Quests!</li>
+                <li>A world that has a quasi sense of life</li>
+                <li>A map, sort of</li>
+                <li>So much more!</li>
+            </ul>
+            </p>
+            <p>I know it doesn't seem like a large list (yet), but each of the elements of Echoes has been given a level of care I'm not certain I've put into any other project in my life.</p>
+            <p>If you are reading this, know from the very bottom of my heart, I am grateful for your interest, and willingness to help Echoes of The Darkwood become the best game it can be.</p>
+            <p>Welcome to Beta 2.</p>
+            <p>Thank you, with every fiber of my being.</p>
+            <p>Stephen C<br>
+            HolySmokesBatty<br>
+            Vortex Project Studios</p>
+            <button class="proceed-button" onclick="closeModal()">Proceed</button>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <h2>Version Information</h2>
+            <p>Beta 3.1 - Dungeons Hotfixes</p>
+            <p>26 October 2024</p>
+            <ul>
+                <li>-Fixed a bug where restarting the game claimed you still had your old equipment</li>
+                <li>-Fixed a bug where restarting the game would still show the last scene when exiting a menu</li>
+                <li>-FINALLY fixed the player marker upon game start, now you will ALWAYS know where you are!</li>
+                <li>-Added more enemies to the dungeons</li>
+                <li>-Added a result page to quests instead of a toast notification</li>
+                <li>-The previous change fixed a bug where completing a quest could show the starting scene incorrectly</li>
+            </ul>
+            <p>Beta 3 - Welcome to The Dungeons</p>
+            <p>24 October 2024</p>
+            <ul>
+                <li>We have dungeons!</li>
+                <li>-There are Unique Dungeon Events, enemies and quests to discover!</li>
+                <li>Enemy stats have been rebalanced and will now scale with you, sort of</li>
+                <li>Quests got a bit of an overhaul, no longer will they be spammable for easy leveling</li>
+                <li>-All non-encounter specific quests now issue a skill check.</li>
+                <li>Some MORE UI changes. Stats, Skills and Equipment are now all housed in the Stats tab</li>
+                <li>We officially have an in game map! It will only show a 10 tile radius around the player.</li>
+                <li>Loot Tables and Shop tables have been adjusted to work in tandem with the player's level.</li>
+                <li>-Town shops now refresh their inventory every 20 steps.</li>
+            </ul>
+            <p>Beta 2.1 - Hotfixes</p>
+            <p>31 July 2024</p>
+            <ul>
+                <li>Ran a full test of all class skills and updated them and the associated combat logic, all skills should now work as intended</li>
+                <li>Fixed Elixir of Power now working as intended</li>
+                <li>Added a few additional events to impact AP, pray to RNGsus you only get the good ones!</li>
+            </ul>
+            <h2>Disclaimers</h2>
+            <p>Game and concepts by Stephen C, all code provided by ChatGPT a property of OpenAI.</p>
+            <h2>Contact</h2>
+            <p>If you encounter any bugs, please report them <a href="mailto:stephenc@vortexproject.io">here</a>.</p>
+        </div>
+    </div>
+    
+    <script src="seedrandom.min.js"></script>
+    <script src="saveLoad.js"></script>
+    <script src="enemies.js"></script>
+    <script src="skills.js"></script>
+    <script src="combat.js"></script>
+    <script src="classes.js"></script>
+    <script src="equipment.js"></script>
+    <script src="items.js"></script>
+    <script src="dungeons.js"></script>
+    <script src="map.js"></script>
+    <script src="inventory.js"></script>
+    <script src="loot.js"></script>
+    <script src="events.js"></script>
+    <script src="merchant.js"></script>
+    <script src="scenes.js"></script>
+    <script src="quests.js"></script>
+    <script src="tavern.js"></script>
+    <script src="towns.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize the start screen
+        showStartScreen();
+        checkFirstVisit();
+    </script>
+    <button id="info-button" class="info-button" onclick="toggleInfoModal()">Info</button>
+</body>
+</html>
