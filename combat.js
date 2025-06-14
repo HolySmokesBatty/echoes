@@ -101,9 +101,11 @@ const combat = {
         const randomEnemy = availableTiers[Math.floor(Math.random() * availableTiers.length)];
         const randomAdjective = enemyAdjectives[Math.floor(Math.random() * enemyAdjectives.length)];
     
-        // Apply scaling based on player level within the current tier
+        // Apply scaling based on player level. Scaling now increases
+        // beyond 1.0 as tiers advance.
         const levelWithinTier = Math.min(playerLevel % 5 || 5, 5);
-        const scalingFactor = 0.5 + (levelWithinTier - 1) * 0.1;
+        const tierBonus = 0.1 * Math.floor((playerLevel - 1) / 5);
+        const scalingFactor = 0.5 + (levelWithinTier - 1) * 0.1 + tierBonus;
     
         // Debugging to see which enemy is selected
         console.log("Selected enemy:", randomEnemy, "with adjective:", randomAdjective);
