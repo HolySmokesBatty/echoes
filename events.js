@@ -1992,7 +1992,7 @@ function calculateEventEffect(baseAmount, type) {
                 // Normal damage, no modification
                 break;
         }
-    } else if (type === 'heal') {
+    } else if (type === 'heal' || type === 'heal_ap' || type === 'heal_hp_ap') {
         switch (result) {
             case 'fail':
                 finalAmount -= Math.round(baseAmount * 0.2); // 20% less healing on fail
@@ -2013,11 +2013,15 @@ function calculateEventEffect(baseAmount, type) {
         finalAmount = Math.min(finalAmount, playerStats.HP); // Ensure it doesn't exceed current HP
     } else if (type === 'heal') {
         finalAmount = Math.round(finalAmount * levelScaling);
-        if (type === 'heal_ap') {
-            finalAmount = Math.min(finalAmount, playerStats.maxAP - playerStats.AP); // Ensure it doesn't exceed max AP
-        } else {
-            finalAmount = Math.min(finalAmount, playerStats.maxHP - playerStats.HP); // Ensure it doesn't exceed max HP
-        }
+        finalAmount = Math.min(finalAmount, playerStats.maxHP - playerStats.HP); // Ensure it doesn't exceed max HP
+    } else if (type === 'heal_ap') {
+        finalAmount = Math.round(finalAmount * levelScaling);
+        finalAmount = Math.min(finalAmount, playerStats.maxAP - playerStats.AP); // Ensure it doesn't exceed max AP
+    } else if (type === 'heal_hp_ap') {
+        finalAmount = Math.round(finalAmount * levelScaling);
+        const hpCap = playerStats.maxHP - playerStats.HP;
+        const apCap = playerStats.maxAP - playerStats.AP;
+        finalAmount = Math.min(finalAmount, hpCap, apCap); // Use the smaller of remaining HP or AP
     }
 
     return { finalAmount, result };
