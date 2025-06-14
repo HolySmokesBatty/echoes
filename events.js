@@ -1848,15 +1848,26 @@ function getRandomEventFromDungeon(terrain) {
     }
 
     const filteredEvents = dungeonEvents.filter(event => event.terrain.includes(terrain));
-    if (filteredEvents.length === 0) {
+
+    let combinedEvents = filteredEvents;
+
+    if (playerStats.activeQuests && playerStats.activeQuests.length > 0) {
+        const activeQuestTitles = playerStats.activeQuests.map(quest => quest.title);
+        const questFilteredEvents = questEvents.filter(event =>
+            event.terrain.includes(terrain) && activeQuestTitles.includes(event.relatedQuest)
+        );
+        combinedEvents = [...filteredEvents, ...questFilteredEvents];
+    }
+
+    if (combinedEvents.length === 0) {
         console.warn("No events found for the terrain:", terrain);
         return null;
     }
-    
-    const totalWeight = filteredEvents.reduce((sum, event) => sum + (event.weight || 1), 0);
+
+    const totalWeight = combinedEvents.reduce((sum, event) => sum + (event.weight || 1), 0);
     let randomWeight = Math.random() * totalWeight;
 
-    for (let event of filteredEvents) {
+    for (let event of combinedEvents) {
         randomWeight -= event.weight;
         if (randomWeight <= 0) {
             return event;
