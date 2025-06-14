@@ -74,7 +74,7 @@ const skills = {
         {
             name: "Guardian Shield",
             cost: 28,
-            level: 251,
+            level: 25,
             description: "Creates a protective shield around themselves, absorbing incoming damage.",
             execute: (player, enemy) => {
                 const shieldAmount = Math.round(player.STR * 0.6);
