@@ -183,7 +183,7 @@
         {
             "name": "Merchant Encounter",
             "description": "You encounter a traveling merchant.",
-            "effect": "Shop",
+            "effect": "shop",
             "weight": 2,
             "terrain": [
                 "path",
@@ -193,7 +193,7 @@
         {
             "name": "Deranged Traveler",
             "description": "You meet a deranged traveler on the road.",
-            "effect": "Quest",
+            "effect": "quest",
             "weight": 1,
             "terrain": [
                 "path",
@@ -203,7 +203,7 @@
         {
             "name": "Mysterious Stranger",
             "description": "You meet a mysterious stranger who offers to augment your equipment.",
-            "effect": "Augment gear",
+            "effect": "augment gear",
             "weight": 1,
             "terrain": [
                 "path",
@@ -224,7 +224,7 @@
         {
             "name": "Encounter",
             "description": "You encounter a wild beast.",
-            "effect": "Combat",
+            "effect": "combat",
             "weight": 6,
             "terrain": [
                 "forest",
@@ -238,7 +238,7 @@
         {
             "name": "Bandit Ambush",
             "description": "You are ambushed by bandits demanding your valuables.",
-            "effect": "Lose Coins or Combat",
+            "effect": "lose coins or combat",
             "weight": 1,
             "terrain": [
                 "path",
@@ -250,7 +250,7 @@
         {
             "name": "Encounter",
             "description": "You encounter a wild beast.",
-            "effect": "Combat",
+            "effect": "combat",
             "weight": 6,
             "terrain": [
                 "ruin",

@@ -107,6 +107,38 @@ function executeEventEffect(event) {
             triggerTreasureMapEvent();
             break;
         }
+        case 'shop': {
+            if (typeof generateMerchantInventory === 'function') {
+                generateMerchantInventory();
+            }
+            currentMerchantName = event.merchantName || event.name;
+            if (typeof displayMerchantEncounter === 'function') {
+                displayMerchantEncounter();
+            }
+            break;
+        }
+        case 'quest': {
+            if (typeof loadNoticeBoard === 'function') {
+                loadNoticeBoard(contentWindow, event.source || 'Wilderness');
+            } else if (typeof displayNotification === 'function') {
+                displayNotification('No notice board available.');
+            }
+            break;
+        }
+        case 'augment gear': {
+            if (typeof confirmAugmentEquipmentWithItems === 'function') {
+                confirmAugmentEquipmentWithItems('weapon');
+            }
+            break;
+        }
+        case 'lose coins or combat': {
+            if (typeof promptLoseCoinsOrCombat === 'function') {
+                promptLoseCoinsOrCombat(amount, event);
+            } else {
+                combat.startCombat();
+            }
+            break;
+        }
         default:
             displayEventEffect(event.name, event.description, 'Nothing happens.');
     }
@@ -285,6 +317,36 @@ function augmentEquipmentFromEvent(slot, requiredItemName, requiredQuantity) {
         refreshEquipmentScreen();
     }
     showPreviousScreen();
+}
+
+function promptLoseCoinsOrCombat(amount, event) {
+    if (!amount || playerStats.coins < amount) {
+        combat.startCombat();
+        return;
+    }
+
+    const contentWindow = document.getElementById('content-window');
+    contentWindow.innerHTML = `
+        <h2>${event.name}</h2>
+        <p>${event.description}</p>
+        <p>The attackers demand ${amount} coins.</p>
+        <button onclick="payCoinsToAvoidCombat(${amount}, '${event.name}', '${event.description}')">Pay</button>
+        <button onclick="startCombatFromEvent()">Fight</button>
+    `;
+}
+
+function payCoinsToAvoidCombat(amount, title, description) {
+    if (playerStats.coins >= amount) {
+        playerStats.coins -= amount;
+        updatePlayerStats(playerStats);
+        displayEventEffect(title, description, `You paid ${amount} coins.`);
+    } else {
+        combat.startCombat();
+    }
+}
+
+function startCombatFromEvent() {
+    combat.startCombat();
 }
 
 function calculateEventEffect(baseAmount, type) {
