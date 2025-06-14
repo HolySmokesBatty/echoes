@@ -1,0 +1,591 @@
+{
+    "events": [
+        {
+            "name": "Falling Branch",
+            "description": "A heavy branch falls from above, striking you before you can react.",
+            "effect": "damage",
+            "minAmount": 5,
+            "maxAmount": 15,
+            "weight": 1,
+            "terrain": [
+                "forest"
+            ]
+        },
+        {
+            "name": "Hidden Trap",
+            "description": "You trigger a hidden trap.",
+            "effect": "damage",
+            "minAmount": 8,
+            "maxAmount": 20,
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "field"
+            ]
+        },
+        {
+            "name": "Arcane Trap",
+            "description": "You trigger an arcane trap that drains your arcane energy.",
+            "effect": "drain_ap",
+            "minAmount": 10,
+            "maxAmount": 30,
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "ruins"
+            ]
+        },
+        {
+            "name": "Mana Drain Field",
+            "description": "You stumble into a mana drain field that weakens your arcane energy.",
+            "effect": "drain_ap",
+            "minAmount": 5,
+            "maxAmount": 15,
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "field",
+                "ruins"
+            ]
+        },
+        {
+            "name": "Peaceful Clearing",
+            "description": "You find a peaceful clearing and decide to rest.",
+            "effect": "heal",
+            "minAmount": 10,
+            "maxAmount": 20,
+            "weight": 2,
+            "terrain": [
+                "field"
+            ]
+        },
+        {
+            "name": "Enchanted Pond",
+            "description": "You discover an enchanted pond with sparkling water.",
+            "effect": "heal",
+            "minAmount": 15,
+            "maxAmount": 25,
+            "weight": 2,
+            "terrain": [
+                "water"
+            ]
+        },
+        {
+            "name": "Mystical Fountain",
+            "description": "You find a mystical fountain that rejuvenates your arcane energy.",
+            "effect": "heal_ap",
+            "minAmount": 10,
+            "maxAmount": 30,
+            "weight": 2,
+            "terrain": [
+                "water",
+                "ruins"
+            ]
+        },
+        {
+            "name": "Arcane Spring",
+            "description": "You discover a hidden spring that rejuvenates your arcane energy.",
+            "effect": "heal_ap",
+            "minAmount": 15,
+            "maxAmount": 25,
+            "weight": 2,
+            "terrain": [
+                "water"
+            ]
+        },
+        {
+            "name": "Enchanted Grove",
+            "description": "You discover an enchanted grove that heals your body and mind.",
+            "effect": "heal_hp_ap",
+            "minAmount": 10,
+            "maxAmount": 20,
+            "weight": 2,
+            "terrain": [
+                "forest"
+            ]
+        },
+        {
+            "name": "Cursed Fog",
+            "description": "You wander into a cursed fog that saps your strength and arcane energy.",
+            "effect": "damage_hp_ap",
+            "minAmount": 5,
+            "maxAmount": 15,
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "field"
+            ]
+        },
+        {
+            "name": "Lost Merchant",
+            "description": "You meet a lost merchant looking for directions.",
+            "effect": "receive item",
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "field",
+                "path"
+            ]
+        },
+        {
+            "name": "Healing Herb",
+            "description": "You find a rare herb with healing properties while exploring.",
+            "effect": "receive item",
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "field"
+            ]
+        },
+        {
+            "name": "Ancient Ruin",
+            "description": "You discover an ancient ruin hidden deep in the forest.",
+            "effect": "receive item",
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "ruins"
+            ]
+        },
+        {
+            "name": "Hidden Cave",
+            "description": "You explore a hidden cave.",
+            "effect": "receive item",
+            "weight": 0.5,
+            "terrain": [
+                "mountain",
+                "forest"
+            ]
+        },
+        {
+            "name": "Abandoned Campsite",
+            "description": "You come upon an old campsite just off the road.",
+            "effect": "receive item",
+            "weight": 1,
+            "terrain": [
+                "path",
+                "forest",
+                "field"
+            ]
+        },
+        {
+            "name": "Hidden Treasure Chest",
+            "description": "You stumble upon a hidden treasure chest while exploring.",
+            "effect": "receive item",
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "field",
+                "ruins",
+                "mountains"
+            ]
+        },
+        {
+            "name": "Merchant Encounter",
+            "description": "You encounter a traveling merchant.",
+            "effect": "Shop",
+            "weight": 2,
+            "terrain": [
+                "path",
+                "field"
+            ]
+        },
+        {
+            "name": "Deranged Traveler",
+            "description": "You meet a deranged traveler on the road.",
+            "effect": "Quest",
+            "weight": 1,
+            "terrain": [
+                "path",
+                "forest"
+            ]
+        },
+        {
+            "name": "Mysterious Stranger",
+            "description": "You meet a mysterious stranger who offers to augment your equipment.",
+            "effect": "Augment gear",
+            "weight": 1,
+            "terrain": [
+                "path",
+                "ruins",
+                "forest"
+            ]
+        },
+        {
+            "name": "Forgotten Door",
+            "description": "You come across a forgotten door hidden in the underbrush.",
+            "effect": "receive item",
+            "weight": 1,
+            "terrain": [
+                "forest",
+                "ruins"
+            ]
+        },
+        {
+            "name": "Encounter",
+            "description": "You encounter a wild beast.",
+            "effect": "Combat",
+            "weight": 6,
+            "terrain": [
+                "forest",
+                "field",
+                "path",
+                "mountains",
+                "water",
+                "ruins"
+            ]
+        },
+        {
+            "name": "Bandit Ambush",
+            "description": "You are ambushed by bandits demanding your valuables.",
+            "effect": "Lose Coins or Combat",
+            "weight": 1,
+            "terrain": [
+                "path",
+                "forest"
+            ]
+        }
+    ],
+    "dungeonEvents": [
+        {
+            "name": "Encounter",
+            "description": "You encounter a wild beast.",
+            "effect": "Combat",
+            "weight": 6,
+            "terrain": [
+                "ruin",
+                "cave",
+                "water",
+                "treasury",
+                "altar",
+                "rubble"
+            ]
+        },
+        {
+            "name": "Crumbling Ceiling",
+            "description": "The ceiling above you begins to crumble, rocks falling from above.",
+            "effect": "damage",
+            "minAmount": 10,
+            "maxAmount": 20,
+            "weight": 2,
+            "terrain": [
+                "ruin",
+                "cave"
+            ]
+        },
+        {
+            "name": "Ancient Trap",
+            "description": "You accidentally trigger an ancient trap. Sharp spikes shoot out from the walls.",
+            "effect": "damage",
+            "minAmount": 5,
+            "maxAmount": 15,
+            "weight": 1,
+            "terrain": [
+                "ruin"
+            ]
+        },
+        {
+            "name": "Healing Spring",
+            "description": "You find a natural spring flowing with healing waters.",
+            "effect": "heal",
+            "minAmount": 15,
+            "maxAmount": 25,
+            "weight": 2,
+            "terrain": [
+                "water",
+                "cave"
+            ]
+        },
+        {
+            "name": "Mystical Pool",
+            "description": "You discover a pool with shimmering water that rejuvenates your arcane energy.",
+            "effect": "heal_ap",
+            "minAmount": 10,
+            "maxAmount": 30,
+            "weight": 2,
+            "terrain": [
+                "water",
+                "cave"
+            ]
+        },
+        {
+            "name": "Altar of Restoration",
+            "description": "You find an ancient altar that radiates a healing aura.",
+            "effect": "heal_hp_ap",
+            "minAmount": 20,
+            "maxAmount": 40,
+            "weight": 2,
+            "terrain": [
+                "altar"
+            ]
+        },
+        {
+            "name": "Hidden Treasure",
+            "description": "You find a hidden treasure chest among the rubble.",
+            "effect": "receive item",
+            "weight": 2,
+            "terrain": [
+                "rubble"
+            ]
+        },
+        {
+            "name": "Treasure Trove",
+            "description": "You uncover a trove of treasure in the treasury.",
+            "effect": "receive item",
+            "weight": 2,
+            "terrain": [
+                "treasury"
+            ]
+        }
+    ],
+    "questEvents": [
+        {
+            "name": "Goblin Menace",
+            "description": "You encounter a group of goblins causing trouble.",
+            "effect": "combat",
+            "terrain": [
+                "forest"
+            ],
+            "weight": 4,
+            "relatedQuest": "Goblin Menace"
+        },
+        {
+            "name": "Lost Necklace",
+            "description": "You find a necklace that matches the description from the notice board.",
+            "effect": "find",
+            "terrain": [
+                "path",
+                "forest"
+            ],
+            "weight": 4,
+            "relatedQuest": "Lost Necklace"
+        },
+        {
+            "name": "Bandit Leader",
+            "description": "You encounter the notorious bandit leader.",
+            "effect": "combat",
+            "terrain": [
+                "forest"
+            ],
+            "weight": 4,
+            "relatedQuest": "Bandit Leader"
+        },
+        {
+            "name": "Missing Child",
+            "description": "You find the missing child, who appears scared and unsure.",
+            "effect": "find",
+            "terrain": [
+                "forest",
+                "field"
+            ],
+            "weight": 5,
+            "relatedQuest": "Missing Child"
+        },
+        {
+            "name": "Wolves Attack",
+            "description": "You encounter a pack of wolves attacking travelers.",
+            "effect": "combat",
+            "terrain": [
+                "forest",
+                "field"
+            ],
+            "weight": 4,
+            "relatedQuest": "Wolves Attack"
+        },
+        {
+            "name": "Herbal Remedy",
+            "description": "You need to collect specific herbs for a remedy.",
+            "effect": "find",
+            "terrain": [
+                "forest",
+                "field"
+            ],
+            "weight": 4,
+            "relatedQuest": "Herbal Remedy"
+        },
+        {
+            "name": "Haunted Encounter",
+            "description": "You enter a haunted area. The atmosphere is heavy with dread.",
+            "effect": "find",
+            "terrain": [
+                "ruins",
+                "forest"
+            ],
+            "weight": 4,
+            "relatedQuest": "Haunted Encounter"
+        },
+        {
+            "name": "Bridge Repair",
+            "description": "You arrive at the site of a damaged bridge. The local workers are struggling with the repairs.",
+            "effect": "build",
+            "terrain": [
+                "water"
+            ],
+            "weight": 4,
+            "relatedQuest": "Bridge Repair"
+        },
+        {
+            "name": "Stolen Goods",
+            "description": "You've tracked down the thieves who stole the goods. Now, you need to recover them.",
+            "effect": "recover",
+            "terrain": [
+                "forest",
+                "ruins"
+            ],
+            "weight": 4,
+            "relatedQuest": "Stolen Goods"
+        },
+        {
+            "name": "Ancient Relic",
+            "description": "You encounter thieves trying to steal an ancient relic.",
+            "effect": "combat",
+            "terrain": [
+                "ruins"
+            ],
+            "weight": 4,
+            "relatedQuest": "Ancient Relic"
+        },
+        {
+            "name": "Poisoned Water Source",
+            "description": "You come across a water source that has been poisoned. The local inhabitants rely on this water.",
+            "effect": "purify",
+            "terrain": [
+                "forest",
+                "water"
+            ],
+            "weight": 4,
+            "relatedQuest": "Poisoned Water Source"
+        },
+        {
+            "name": "Cursed Forest",
+            "description": "The forest is cursed, and a powerful Forest Guardian lurks within.",
+            "effect": "combat",
+            "terrain": [
+                "forest"
+            ],
+            "weight": 5,
+            "relatedQuest": "Cursed Forest"
+        },
+        {
+            "name": "Spy in the Wilderness",
+            "description": "You encounter a spy operating in the area.",
+            "effect": "combat",
+            "terrain": [
+                "forest",
+                "field"
+            ],
+            "weight": 4,
+            "relatedQuest": "Spy in the Wilderness"
+        },
+        {
+            "name": "Missing Livestock",
+            "description": "You arrive at the site where the livestock was last seen. The animals are nowhere to be found.",
+            "effect": "find",
+            "terrain": [
+                "field",
+                "forest"
+            ],
+            "weight": 4,
+            "relatedQuest": "Missing Livestock"
+        },
+        {
+            "name": "Strange Lights",
+            "description": "You investigate the source of the strange lights.",
+            "effect": "find",
+            "terrain": [
+                "forest",
+                "field"
+            ],
+            "weight": 4,
+            "relatedQuest": "Strange Lights"
+        },
+        {
+            "name": "Escaped Prisoner",
+            "description": "You encounter an escaped prisoner.",
+            "effect": "combat",
+            "terrain": [
+                "forest",
+                "field"
+            ],
+            "weight": 4,
+            "relatedQuest": "Escaped Prisoner"
+        },
+        {
+            "name": "Ancient Ritual",
+            "description": "You discover a hidden ritual site deep in the forest. Ancient symbols cover the stones, and magic lingers in the air.",
+            "effect": "ritual",
+            "terrain": [
+                "forest",
+                "ruins"
+            ],
+            "weight": 4,
+            "relatedQuest": "Ancient Ritual"
+        },
+        {
+            "name": "Merchant Escort",
+            "description": "You've been hired to escort a merchant safely to their destination.",
+            "effect": "escort",
+            "terrain": [
+                "path",
+                "forest"
+            ],
+            "weight": 4,
+            "relatedQuest": "Merchant Escort"
+        },
+        {
+            "name": "Plague Cure Ingredients",
+            "description": "A deadly plague is sweeping through the village. You must gather the rare ingredients needed to prepare the cure.",
+            "effect": "cure",
+            "terrain": [
+                "forest",
+                "mountain"
+            ],
+            "weight": 6,
+            "relatedQuest": "Plague Cure Ingredients"
+        },
+        {
+            "name": "Arachnid Nest",
+            "description": "You encounter a nest of venomous arachnids.",
+            "effect": "combat",
+            "terrain": [
+                "forest",
+                "mountain",
+                "ruins"
+            ],
+            "weight": 4,
+            "relatedQuest": "Arachnid Nest"
+        },
+        {
+            "name": "Relic of the Lost Temple",
+            "description": "You find a hidden chamber deep within the ruins. The relic lies on a pedestal, but the room feels dangerous.",
+            "effect": "relic",
+            "terrain": [
+                "altar",
+                "ruin"
+            ],
+            "weight": 4,
+            "relatedQuest": "Relic of the Lost Temple"
+        },
+        {
+            "name": "Cavern Guardian",
+            "description": "You enter the deepest chamber of the cavern. A massive guardian blocks your path.",
+            "effect": "combat",
+            "terrain": [
+                "cave",
+                "treasury"
+            ],
+            "weight": 6,
+            "relatedQuest": "Cavern Guardian"
+        },
+        {
+            "name": "The Cursed Treasury",
+            "description": "You enter the cursed treasury, its contents locked away by an ancient spell.",
+            "effect": "curse",
+            "terrain": [
+                "treasury"
+            ],
+            "weight": 4,
+            "relatedQuest": "The Cursed Treasury"
+        }
+    ]
+}
