@@ -118,8 +118,8 @@ function executeEventEffect(event) {
             break;
         }
         case 'quest': {
-            if (typeof loadNoticeBoard === 'function') {
-                loadNoticeBoard(contentWindow, event.source || 'Wilderness');
+            if (event.source && event.source.startsWith('town') && typeof loadNoticeBoard === 'function') {
+                loadNoticeBoard(contentWindow, event.source);
             } else if (typeof displayNotification === 'function') {
                 displayNotification('No notice board available.');
             }

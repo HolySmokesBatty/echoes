@@ -128,11 +128,13 @@ describe('executeEventEffect', () => {
         vm.runInContext(eventsSrc, context);
 
         context.loadNoticeBoard = jest.fn();
+        context.displayNotification = jest.fn();
 
         const event = { name: 'Traveler', effect: 'quest', source: 'road' };
         context.executeEventEffect(event);
 
-        expect(context.loadNoticeBoard).toHaveBeenCalled();
+        expect(context.loadNoticeBoard).not.toHaveBeenCalled();
+        expect(context.displayNotification).toHaveBeenCalled();
     });
 
     test('augment gear effect confirms augmentation', () => {
