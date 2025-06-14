@@ -1911,7 +1911,7 @@ function displayEventEffect(title, description, message) {
 }
 
 function confirmAugmentEquipmentWithItems(slot) {
-    const item = equippedItems[slot];
+    const item = GameState.equippedItems[slot];
     if (!item) {
         displayNotification("No item equipped in this slot.");
         return;
@@ -1942,7 +1942,7 @@ function confirmAugmentEquipmentWithItems(slot) {
 }
 
 function augmentEquipmentFromEvent(slot, requiredItemName, requiredQuantity) {
-    const item = equippedItems[slot];
+    const item = GameState.equippedItems[slot];
     if (!item) {
         displayNotification("No item equipped in this slot.");
         return;

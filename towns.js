@@ -324,7 +324,7 @@ function visitBlacksmith() {
 }
 
 function confirmAugmentWeapon() {
-    const weapon = equippedItems.weapon;
+    const weapon = GameState.equippedItems.weapon;
     if (!weapon) {
         displayNotification("No weapon equipped.");
         return;
@@ -346,7 +346,7 @@ function confirmAugmentWeapon() {
 }
 
 function confirmAugmentArmor() {
-    const armor = equippedItems.armor;
+    const armor = GameState.equippedItems.armor;
     if (!armor) {
         displayNotification("No armor equipped.");
         return;
@@ -369,7 +369,7 @@ function confirmAugmentArmor() {
 
 function augmentWeapon() {
     const contentWindow = document.getElementById('content-window');
-    const weapon = equippedItems.weapon;
+    const weapon = GameState.equippedItems.weapon;
     if (!weapon) {
         displayNotification("No weapon equipped.");
         return;
@@ -395,7 +395,7 @@ function augmentWeapon() {
 
 function augmentArmor() {
     const contentWindow = document.getElementById('content-window');
-    const armor = equippedItems.armor;
+    const armor = GameState.equippedItems.armor;
     if (!armor) {
         displayNotification("No armor equipped.");
         return;
