@@ -1,5 +1,7 @@
 let equipmentInventory = [];
-let inventory = [];
+GameState.inventory = GameState.inventory || [];
+let inventory = GameState.inventory;
+let equippedItems = GameState.equippedItems;
 
 function addItemToInventory(item) {
     const existingItem = inventory.find(i => i.name === item.name);

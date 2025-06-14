@@ -1,15 +1,15 @@
 // Save Game Function
 function saveGame() {
     const saveData = {
-        playerStats: playerStats,
+        playerStats: GameState.playerStats,
         playerPosition: playerPosition,
         mapData: map,
         scenesArray: scenesArray,
-        inventory: inventory,
-        equippedItems: equippedItems,
-        currentScene: currentScene,
-        eventInProgress: eventInProgress,
-        lastEventTriggered: lastEventTriggered,
+        inventory: GameState.inventory,
+        equippedItems: GameState.equippedItems,
+        currentScene: GameState.currentScene,
+        eventInProgress: GameState.eventInProgress,
+        lastEventTriggered: GameState.lastEventTriggered,
         currentDungeon: currentDungeon,  // Save current dungeon ID
         currentDungeonMap: currentDungeonMap, // Save current dungeon map
         dungeonScenesArray: dungeonScenesArray, // Save dungeon scenes
@@ -49,16 +49,22 @@ function loadGame() {
 
         // Assign loaded data to game variables
         playerStats = loadedPlayerStats;
+        GameState.playerStats = playerStats;
         map = mapData;
         const previousX = playerPosition.x;
         const previousY = playerPosition.y;
         playerPosition = loadedPlayerPosition;
         scenesArray = loadedScenesArray;
-        inventory = loadedInventory;
-        equippedItems = loadedEquippedItems || { weapon: null, armor: null };
+        GameState.inventory = loadedInventory;
+        inventory = GameState.inventory;
+        GameState.equippedItems = loadedEquippedItems || { weapon: null, armor: null };
+        equippedItems = GameState.equippedItems;
         currentScene = loadedCurrentScene;
+        GameState.currentScene = currentScene;
         eventInProgress = loadedEventInProgress;
+        GameState.eventInProgress = eventInProgress;
         lastEventTriggered = loadedLastEventTriggered;
+        GameState.lastEventTriggered = lastEventTriggered;
         currentDungeon = loadedCurrentDungeon;  // Restore dungeon state
         currentDungeonMap = loadedDungeonMap;   // Restore dungeon map
         dungeonScenesArray = loadedDungeonScenesArray;  // Restore dungeon scenes
@@ -89,6 +95,7 @@ function loadGame() {
         }
         updateMovementButtons();
         isCharacterCreated = true;
+        GameState.isCharacterCreated = isCharacterCreated;
 
         // Enable the control and info windows
         const infoWindow = document.querySelector('.info-window');
@@ -110,6 +117,7 @@ function loadGame() {
 
         displayNotification("Game loaded successfully!");
         isLoadingGame = false;
+        GameState.isLoadingGame = isLoadingGame;
     } else {
         displayNotification("No saved game found.");
         showStartScreen();
@@ -119,6 +127,7 @@ function loadGame() {
 // Confirm Save/Load
 function confirmSaveGame() {
     previousScreen = currentScene;
+    GameState.previousScreen = previousScreen;
     const contentWindow = document.getElementById('content-window');
     contentWindow.innerHTML = `
         <h2>Save Game</h2>
@@ -130,6 +139,7 @@ function confirmSaveGame() {
 
 function confirmLoadGame() {
     previousScreen = currentScene;
+    GameState.previousScreen = previousScreen;
     const contentWindow = document.getElementById('content-window');
     contentWindow.innerHTML = `
         <h2>Load Game</h2>
