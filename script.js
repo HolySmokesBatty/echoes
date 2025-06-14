@@ -67,17 +67,26 @@ function calculateHealing(item, playerStats, type) {
 
 // Initialization and Setup
 let playerClass = "";
-let playerStats = {};
-let isCharacterCreated = false;
-let eventInProgress = false;
-let currentScene = null;
-let previousScreen = null;
-let lastEventTriggered = null;
-let isLoadingGame = false;
-let equippedItems = {
+GameState.playerStats = {};
+GameState.isCharacterCreated = false;
+GameState.eventInProgress = false;
+GameState.currentScene = null;
+GameState.previousScreen = null;
+GameState.lastEventTriggered = null;
+GameState.isLoadingGame = false;
+GameState.equippedItems = {
     weapon: null,
     armor: null
 };
+
+let playerStats = GameState.playerStats;
+let isCharacterCreated = GameState.isCharacterCreated;
+let eventInProgress = GameState.eventInProgress;
+let currentScene = GameState.currentScene;
+let previousScreen = GameState.previousScreen;
+let lastEventTriggered = GameState.lastEventTriggered;
+let isLoadingGame = GameState.isLoadingGame;
+let equippedItems = GameState.equippedItems;
 
 function checkFirstVisit() {
     if (!localStorage.getItem('hasVisited')) {
@@ -283,6 +292,7 @@ function initializePlayerStats(playerName, playerClass = null) {
         activeQuests: [], // Initialize active quests
         steps: 0 // Initialize the step counter
     };
+    GameState.playerStats = playerStats;
     updatePlayerStats();
 }
 
@@ -325,6 +335,7 @@ function showHowToPlay() {
 
 function displayUnknownLocation() {
     currentScene = null;
+    GameState.currentScene = currentScene;
     const contentWindow = document.getElementById('content-window');
     contentWindow.innerHTML = `
         <h2>You're Finally Awake</h2>
@@ -340,6 +351,7 @@ function displayCurrentScene() {
 
     if (scene) {
         currentScene = scene;
+        GameState.currentScene = currentScene;
         contentWindow.innerHTML = `
             <h2>${scene.name}</h2>
             <p>${scene.description}</p>
@@ -359,6 +371,7 @@ function displayCurrentScene() {
         const randomScene = getRandomScene();
         scenesArray[y][x] = randomScene;
         currentScene = randomScene;
+        GameState.currentScene = currentScene;
         contentWindow.innerHTML = `
             <h2>${randomScene.name}</h2>
             <p>${randomScene.description}</p>
@@ -372,6 +385,7 @@ function displayCurrentScene() {
         if (isEvent && lastEventTriggered !== 'event') {
             const event = getRandomEvent();
             currentScene = { ...event, type: 'event' };
+            GameState.currentScene = currentScene;
             contentWindow.innerHTML = `
                 <h2>${event.name}</h2>
                 <p>${event.description}</p>
@@ -392,6 +406,7 @@ function showScreen(screen) {
 
     if (['statsSkills', 'map', 'inventory', 'quests'].includes(screen)) {
         previousScreen = currentScene;
+        GameState.previousScreen = previousScreen;
 
         const button = [...controlButtons].find(btn => btn.getAttribute('onclick') === `showScreen('${screen}')`);
         if (button) {
@@ -421,6 +436,7 @@ function showScreen(screen) {
                 `;
             } else {
                 currentScene = getRandomScene();
+                GameState.currentScene = currentScene;
                 content = `
                     <h2>${currentScene.name}</h2>
                     <p>${currentScene.description}</p>
@@ -445,6 +461,7 @@ function showScreen(screen) {
             break;
         default:
             currentScene = getRandomScene();
+            GameState.currentScene = currentScene;
             content = `
                 <h2>${currentScene.name}</h2>
                 <p>${currentScene.description}</p>
@@ -649,6 +666,7 @@ function showPreviousScreen() {
     // If not in a dungeon, revert to the previous screen
     if (previousScreen) {
         currentScene = previousScreen;
+        GameState.currentScene = currentScene;
         previousScreen = null;
 
         if (currentScene && currentScene.type === 'town') {
@@ -738,6 +756,7 @@ function camp() {
     }
 
     previousScreen = currentScene;
+    GameState.previousScreen = previousScreen;
     const contentWindow = document.getElementById('content-window');
     contentWindow.innerHTML = `
         <h2>Camp</h2>
@@ -806,6 +825,7 @@ function reassignTownLocationFunctions() {
 
 function confirmQuitGame() {
     previousScreen = currentScene;
+    GameState.previousScreen = previousScreen;
     const contentWindow = document.getElementById('content-window');
     contentWindow.innerHTML = `
         <h2>Quit Game</h2>
@@ -916,8 +936,11 @@ function restartGame() {
 
     // Reset any other necessary game states
     isCharacterCreated = true;
+    GameState.isCharacterCreated = isCharacterCreated;
     eventInProgress = false;
+    GameState.eventInProgress = eventInProgress;
     lastEventTriggered = null;
+    GameState.lastEventTriggered = lastEventTriggered;
 
     // Update UI elements
     updatePlayerStats();
