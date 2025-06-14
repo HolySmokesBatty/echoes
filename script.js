@@ -86,7 +86,11 @@ let currentScene = GameState.currentScene;
 let previousScreen = GameState.previousScreen;
 let lastEventTriggered = GameState.lastEventTriggered;
 let isLoadingGame = GameState.isLoadingGame;
-let equippedItems = GameState.equippedItems;
+// "equippedItems" may already be defined in inventory.js.
+// Avoid redeclaring it when script.js loads after inventory.js.
+if (typeof equippedItems === 'undefined') {
+    equippedItems = GameState.equippedItems;
+}
 
 function checkFirstVisit() {
     if (!localStorage.getItem('hasVisited')) {
