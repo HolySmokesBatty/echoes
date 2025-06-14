@@ -191,16 +191,6 @@
             ]
         },
         {
-            "name": "Deranged Traveler",
-            "description": "You meet a deranged traveler on the road.",
-            "effect": "quest",
-            "weight": 1,
-            "terrain": [
-                "path",
-                "forest"
-            ]
-        },
-        {
             "name": "Mysterious Stranger",
             "description": "You meet a mysterious stranger who offers to augment your equipment.",
             "effect": "augment gear",

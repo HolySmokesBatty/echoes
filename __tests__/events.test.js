@@ -110,32 +110,6 @@ describe('executeEventEffect', () => {
         expect(context.currentMerchantName).toBe('Merchant');
     });
 
-    test('quest effect loads notice board', () => {
-        const seedSrc = fs.readFileSync(path.join(__dirname, '../seedrandom.min.js'), 'utf8');
-        const utilsSrc = fs.readFileSync(path.join(__dirname, '../utils.js'), 'utf8');
-        const eventsSrc = fs.readFileSync(path.join(__dirname, '../events.js'), 'utf8') +
-            '\n;globalThis.executeEventEffect = executeEventEffect;';
-
-        const context = {
-            console,
-            EVENTS_DATA: { events: [], dungeonEvents: [], questEvents: [] },
-            document: { getElementById: () => ({ style: {}, innerHTML: '' }) }
-        };
-
-        vm.createContext(context);
-        vm.runInContext(seedSrc, context);
-        vm.runInContext(utilsSrc, context);
-        vm.runInContext(eventsSrc, context);
-
-        context.loadNoticeBoard = jest.fn();
-        context.displayNotification = jest.fn();
-
-        const event = { name: 'Traveler', effect: 'quest', source: 'road' };
-        context.executeEventEffect(event);
-
-        expect(context.loadNoticeBoard).not.toHaveBeenCalled();
-        expect(context.displayNotification).toHaveBeenCalled();
-    });
 
     test('augment gear effect confirms augmentation', () => {
         const seedSrc = fs.readFileSync(path.join(__dirname, '../seedrandom.min.js'), 'utf8');

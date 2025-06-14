@@ -117,14 +117,6 @@ function executeEventEffect(event) {
             }
             break;
         }
-        case 'quest': {
-            if (event.source && event.source.startsWith('town') && typeof loadNoticeBoard === 'function') {
-                loadNoticeBoard(contentWindow, event.source);
-            } else if (typeof displayNotification === 'function') {
-                displayNotification('No notice board available.');
-            }
-            break;
-        }
         case 'find': {
             displayEventEffect(event.name, event.description, 'You found what you were looking for.');
             checkQuestCompletion(event);
