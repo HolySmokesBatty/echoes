@@ -496,6 +496,22 @@ button:active {
     }
 }
 
+.pulse-red {
+    animation: pulse-red 1s;
+}
+
+.pulse-green {
+    animation: pulse-green 1s;
+}
+
+.pulse-blue {
+    animation: pulse-blue 1s;
+}
+
+.pulse-purple {
+    animation: pulse-purple 1s;
+}
+
 
 /* Modal Styles */
 .modal {

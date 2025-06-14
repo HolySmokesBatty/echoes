@@ -37,8 +37,10 @@ registerEventActions(questEvents);
 
 function executeEventEffect(event) {
     const amount = event.maxAmount ? getRandomInt(event.minAmount || 0, event.maxAmount) : 0;
+    const contentWindow = document.getElementById('content-window');
     switch (event.effect) {
         case 'damage': {
+            contentWindow.style.animation = 'pulse-red 1s';
             const { finalAmount } = calculateEventEffect(amount, 'damage');
             playerStats.HP = Math.max(playerStats.HP - finalAmount, 0);
             updatePlayerStats(playerStats);
@@ -46,6 +48,7 @@ function executeEventEffect(event) {
             break;
         }
         case 'heal': {
+            contentWindow.style.animation = 'pulse-green 1s';
             const { finalAmount } = calculateEventEffect(amount, 'heal');
             playerStats.HP = Math.min(playerStats.HP + finalAmount, playerStats.maxHP);
             updatePlayerStats(playerStats);
@@ -53,6 +56,7 @@ function executeEventEffect(event) {
             break;
         }
         case 'drain_ap': {
+            contentWindow.style.animation = 'pulse-blue 1s';
             const { finalAmount } = calculateEventEffect(amount, 'damage');
             playerStats.AP = Math.max(playerStats.AP - finalAmount, 0);
             updatePlayerStats(playerStats);
@@ -60,6 +64,7 @@ function executeEventEffect(event) {
             break;
         }
         case 'heal_ap': {
+            contentWindow.style.animation = 'pulse-blue 1s';
             const { finalAmount } = calculateEventEffect(amount, 'heal_ap');
             playerStats.AP = Math.min(playerStats.AP + finalAmount, playerStats.maxAP);
             updatePlayerStats(playerStats);
@@ -67,6 +72,7 @@ function executeEventEffect(event) {
             break;
         }
         case 'heal_hp_ap': {
+            contentWindow.style.animation = 'pulse-purple 1s';
             const { finalAmount } = calculateEventEffect(amount, 'heal_hp_ap');
             playerStats.HP = Math.min(playerStats.HP + finalAmount, playerStats.maxHP);
             playerStats.AP = Math.min(playerStats.AP + finalAmount, playerStats.maxAP);
@@ -75,6 +81,7 @@ function executeEventEffect(event) {
             break;
         }
         case 'damage_hp_ap': {
+            contentWindow.style.animation = 'pulse-purple 1s';
             const { finalAmount } = calculateEventEffect(amount, 'damage');
             playerStats.HP = Math.max(playerStats.HP - finalAmount, 0);
             playerStats.AP = Math.max(playerStats.AP - finalAmount, 0);
