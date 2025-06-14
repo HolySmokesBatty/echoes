@@ -154,7 +154,7 @@ function generateDungeon() {
     // Place tiles based on dungeon type, similar to overworld scene placement
     fillDungeonScenes(dungeonMap, dungeonScenesArray, dungeonType, rng);
 
-    const dungeonId = `dungeon_${Date.now()}`; // Unique ID for the dungeon
+    const dungeonId = `dungeon_${Date.now()}_${Math.floor(Math.random()*1e6)}`; // Unique ID with random component
 
     dungeons[dungeonId] = {
         type: dungeonType,
