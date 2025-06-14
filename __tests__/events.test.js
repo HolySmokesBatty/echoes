@@ -54,3 +54,30 @@ describe('event weighting', () => {
         expect(counts.dCommon).toBeGreaterThan(counts.dRare);
     });
 });
+
+describe('executeEventEffect', () => {
+    test('combat effect is case-insensitive', () => {
+        const seedSrc = fs.readFileSync(path.join(__dirname, '../seedrandom.min.js'), 'utf8');
+        const utilsSrc = fs.readFileSync(path.join(__dirname, '../utils.js'), 'utf8');
+        const eventsSrc = fs.readFileSync(path.join(__dirname, '../events.js'), 'utf8') +
+            '\n;globalThis.executeEventEffect = executeEventEffect;';
+
+        const combatMock = { startCombat: jest.fn() };
+        const context = {
+            console,
+            EVENTS_DATA: { events: [], dungeonEvents: [], questEvents: [] },
+            document: { getElementById: () => ({ style: {} }) },
+            combat: combatMock
+        };
+
+        vm.createContext(context);
+        vm.runInContext(seedSrc, context);
+        vm.runInContext(utilsSrc, context);
+        vm.runInContext(eventsSrc, context);
+
+        const event = { name: 'Encounter', effect: 'Combat' };
+        context.executeEventEffect(event);
+
+        expect(combatMock.startCombat).toHaveBeenCalled();
+    });
+});

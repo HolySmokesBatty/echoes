@@ -27,6 +27,9 @@ const eventActions = {};
 
 function registerEventActions(list) {
     list.forEach(event => {
+        if (event.effect) {
+            event.effect = event.effect.toLowerCase();
+        }
         eventActions[event.name] = () => executeEventEffect(event);
     });
 }
@@ -38,7 +41,8 @@ registerEventActions(questEvents);
 function executeEventEffect(event) {
     const amount = event.maxAmount ? getRandomInt(event.minAmount || 0, event.maxAmount) : 0;
     const contentWindow = document.getElementById('content-window');
-    switch (event.effect) {
+    const effect = (event.effect || '').toLowerCase();
+    switch (effect) {
         case 'damage': {
             contentWindow.style.animation = 'pulse-red 1s';
             const { finalAmount } = calculateEventEffect(amount, 'damage');
