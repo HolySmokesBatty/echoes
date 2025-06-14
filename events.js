@@ -1823,22 +1823,34 @@ function triggerTreasureMapEvent() {
 
 // Ensure events are selected based on terrain
 function getRandomEvent(terrain) {
-
     const filteredEvents = events.filter(event => event.terrain.includes(terrain));
 
-    if (!playerStats.activeQuests || playerStats.activeQuests.length === 0) {
-        return filteredEvents.length > 0 ? filteredEvents[Math.floor(getRandom() * filteredEvents.length)] : null;
+    let combinedEvents = filteredEvents;
+
+    if (playerStats.activeQuests && playerStats.activeQuests.length > 0) {
+        const activeQuestTitles = playerStats.activeQuests.map(quest => quest.title);
+        const questFilteredEvents = questEvents.filter(event =>
+            event.terrain.includes(terrain) && activeQuestTitles.includes(event.relatedQuest)
+        );
+        combinedEvents = [...filteredEvents, ...questFilteredEvents];
     }
 
-    const activeQuestTitles = playerStats.activeQuests.map(quest => quest.title);
+    if (combinedEvents.length === 0) {
+        console.warn("No events found for the terrain:", terrain);
+        return null;
+    }
 
-    const questFilteredEvents = questEvents.filter(event => 
-        event.terrain.includes(terrain) && activeQuestTitles.includes(event.relatedQuest)
-    );
+    const totalWeight = combinedEvents.reduce((sum, event) => sum + (event.weight || 1), 0);
+    let randomWeight = getRandom() * totalWeight;
 
-    const combinedEvents = [...filteredEvents, ...questFilteredEvents];
+    for (let event of combinedEvents) {
+        randomWeight -= (event.weight || 1);
+        if (randomWeight <= 0) {
+            return event;
+        }
+    }
 
-    return combinedEvents.length > 0 ? combinedEvents[Math.floor(getRandom() * combinedEvents.length)] : null;
+    return null;
 }
 
 function getRandomEventFromDungeon(terrain) {
