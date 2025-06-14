@@ -131,7 +131,7 @@ function generateNewQuestsForTown(townSource) {
 
     // Shuffle the available quests to ensure random selection
     for (let i = availableQuests.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(getRandom() * (i + 1));
         [availableQuests[i], availableQuests[j]] = [availableQuests[j], availableQuests[i]];
     }
 

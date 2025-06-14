@@ -490,14 +490,14 @@ organizeEquipment();
 function getRandomEquipmentByTier(tier) {
     const tierEquipment = equipmentByTier[tier] || [];
     if (tierEquipment.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * tierEquipment.length);
+    const randomIndex = Math.floor(getRandom() * tierEquipment.length);
     return tierEquipment[randomIndex];
 }
 
 function getRandomEquipmentByType(type) {
     const typeEquipment = equipmentByType[type] || [];
     if (typeEquipment.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * typeEquipment.length);
+    const randomIndex = Math.floor(getRandom() * typeEquipment.length);
     return typeEquipment[randomIndex];
 }
 
@@ -507,7 +507,7 @@ function getRandomEquipmentByTierAndType(tiers, excludeTypes = []) {
         (!equip.types || !excludeTypes.some(type => equip.types.includes(type)))
     );
     if (!tierEquipment.length) return null;
-    return tierEquipment[Math.floor(Math.random() * tierEquipment.length)];
+    return tierEquipment[Math.floor(getRandom() * tierEquipment.length)];
 }
 
 function getRandomEquipment(min, max, tiers = []) {
@@ -516,7 +516,7 @@ function getRandomEquipment(min, max, tiers = []) {
     for (let i = 0; i < equipmentCount; i++) {
         let equip = null;
         if (tiers.length > 0) {
-            const tier = tiers[Math.floor(Math.random() * tiers.length)];
+            const tier = tiers[Math.floor(getRandom() * tiers.length)];
             equip = getRandomEquipmentByTier(tier);
         }
         if (equip) {

@@ -109,8 +109,8 @@ const combat = {
         console.log("Available tiers based on player level:", playerLevel, availableTiers);
     
         // Choose a random enemy
-        const randomEnemy = availableTiers[Math.floor(Math.random() * availableTiers.length)];
-        const randomAdjective = enemyAdjectives[Math.floor(Math.random() * enemyAdjectives.length)];
+        const randomEnemy = availableTiers[Math.floor(getRandom() * availableTiers.length)];
+        const randomAdjective = enemyAdjectives[Math.floor(getRandom() * enemyAdjectives.length)];
     
         // Apply scaling based on player level. Scaling now increases
         // beyond 1.0 as tiers advance.
@@ -330,7 +330,7 @@ const combat = {
 
     run() {
         const runSuccessChance = Math.min(0.5 + this.getModifiedStat(this.player, 'LCK') / 100, 0.9);
-        if (Math.random() < runSuccessChance) {
+        if (getRandom() < runSuccessChance) {
             this.endCombat("You successfully escaped the battle!");
             lastEventTriggered = 'scene';
         } else {
@@ -352,13 +352,13 @@ const combat = {
         const defenseStat = isMagic ? 'ARC' : 'DEF';
         const baseAttack = this.getModifiedStat(attacker, baseAttackStat);
         const defense = this.getModifiedStat(defender, defenseStat);
-        const randomFactor = Math.random() * 0.2 + 0.9;
+        const randomFactor = getRandom() * 0.2 + 0.9;
         const criticalHitChance = Math.min(this.getModifiedStat(attacker, 'LCK') / 100, 0.5);
-        const isCriticalHit = Math.random() < criticalHitChance;
+        const isCriticalHit = getRandom() < criticalHitChance;
         const criticalHitMultiplier = isCriticalHit ? 2.0 : 1.0;
         const evasionChance = this.getModifiedStat(defender, 'EVD') / 100;
 
-        if (Math.random() < evasionChance && !isSkill) {
+        if (getRandom() < evasionChance && !isSkill) {
             return { damage: 0, evaded: true, critical: false };
         }
 
@@ -509,7 +509,7 @@ const combat = {
         let rewardsMessage = `<h3>Battle Rewards</h3>`;
         rewardsMessage += `<p>XP Gained: ${this.enemy.XP}</p>`;
 
-        const coinsGained = Math.floor(Math.random() * (this.enemy.coinRange.max - this.enemy.coinRange.min + 1)) + this.enemy.coinRange.min;
+        const coinsGained = Math.floor(getRandom() * (this.enemy.coinRange.max - this.enemy.coinRange.min + 1)) + this.enemy.coinRange.min;
         playerStats.coins += coinsGained;
 
         rewardsMessage += `<p>Coins Gained: ${coinsGained}</p>`;
@@ -517,7 +517,7 @@ const combat = {
         if (this.enemy.drops && this.enemy.drops.length > 0) {
             rewardsMessage += `<p>Items Gained:</p><ul>`;
             this.enemy.drops.forEach(drop => {
-                if (Math.random() < drop.rate) {
+                if (getRandom() < drop.rate) {
                     const item = getItemDefinition(drop.item);
                     if (item) {
                         rewardsMessage += `<li>${item.name}</li>`;

@@ -14,7 +14,8 @@ function saveGame() {
         currentDungeonMap: currentDungeonMap, // Save current dungeon map
         dungeonScenesArray: dungeonScenesArray, // Save dungeon scenes
         dungeons: dungeons, // Save the entire dungeons object
-        dungeonPlayerPosition: { x: playerPosition.x, y: playerPosition.y }  // Save player's position in the dungeon
+        dungeonPlayerPosition: { x: playerPosition.x, y: playerPosition.y }, // Save player's position in the dungeon
+        seed: getCurrentSeed()
     };
 
     localStorage.setItem('saveData1', JSON.stringify(saveData));
@@ -40,8 +41,11 @@ function loadGame() {
             currentDungeonMap: loadedDungeonMap,    // Load current dungeon map
             dungeonScenesArray: loadedDungeonScenesArray, // Load dungeon scenes
             dungeons: loadedDungeons,  // Load the entire dungeons object
-            dungeonPlayerPosition: loadedDungeonPlayerPosition // Load player's position in the dungeon
+            dungeonPlayerPosition: loadedDungeonPlayerPosition, // Load player's position in the dungeon
+            seed: loadedSeed
         } = JSON.parse(savedData);
+
+        setRandomSeed(loadedSeed || Date.now().toString());
 
         // Assign loaded data to game variables
         playerStats = loadedPlayerStats;

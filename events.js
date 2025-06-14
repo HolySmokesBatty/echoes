@@ -218,7 +218,7 @@ const events = [
         weight: 1,
         terrain: ["forest", "field", "path"],
         action: function() {
-            const item = Math.random() < 0.2 ? items.find(i => i.name === "Tent") : getRandomItemByTier(1) || getRandomItemByTier(2);
+            const item = getRandom() < 0.2 ? items.find(i => i.name === "Tent") : getRandomItemByTier(1) || getRandomItemByTier(2);
             addItemToInventory(item);
             displayEventEffect(this.name, this.description, `The lost merchant gives you a ${item.name} as thanks.`);
         }
@@ -333,7 +333,7 @@ const events = [
         terrain: ["path", "forest"],
         action: function () {
             const rareItems = ["Cursed Amulet", "Enchanted Mirror"];
-            const requestedItem = rareItems[Math.floor(Math.random() * rareItems.length)];
+            const requestedItem = rareItems[Math.floor(getRandom() * rareItems.length)];
             const item = inventory.find(i => i.name === requestedItem);
             if (item) {
                 const coins = getRandomInt(5, 15);
@@ -405,7 +405,7 @@ const events = [
                 return;
             }
 
-            const bounty = Math.floor(Math.random() * 91) + 10;
+            const bounty = Math.floor(getRandom() * 91) + 10;
             const controlWindow = document.getElementById('control-window');
             if (controlWindow) {
                 controlWindow.style.visibility = 'hidden';
@@ -495,7 +495,7 @@ const questEvents = [
         relatedQuest: "Lost Necklace",
         action: function() {
             // Check luck to determine if the player can collect the necklace without trouble
-            const luckCheck = Math.random() < playerStats.LCK / 100;
+            const luckCheck = getRandom() < playerStats.LCK / 100;
             if (luckCheck) {
                 displayQuestResult(
                     this.relatedQuest,
@@ -579,7 +579,7 @@ const questEvents = [
             // Define approach functions with results for each option
             approachOptions.forEach(({ name, stat, successMessage, failMessage }) => {
                 window[name] = () => {
-                    const success = Math.random() < playerStats[stat] / 100;
+                    const success = getRandom() < playerStats[stat] / 100;
                     displayQuestResult(
                         this.relatedQuest, 
                         success, 
@@ -632,7 +632,7 @@ const questEvents = [
             
             // Function for identifying herbs using ARC check
             window.identifyHerbs = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -652,7 +652,7 @@ const questEvents = [
             
             // Function for speedy collection using EVD check
             window.speedyCollection = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 
                 if (evasionCheck) {
                     displayQuestResult(
@@ -713,7 +713,7 @@ const questEvents = [
             
             // Attempt to exorcise the spirit using ARC check
             window.exorciseSpirit = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -733,7 +733,7 @@ const questEvents = [
             
             // Attempt to flee using EVD check
             window.fleeArea = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 
                 if (evasionCheck) {
                     displayQuestResult(
@@ -782,7 +782,7 @@ const questEvents = [
 
             // Assist with Construction - STR check
             window.assistWithConstruction = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 
                 if (strengthCheck) {
                     displayQuestResult(
@@ -803,7 +803,7 @@ const questEvents = [
 
             // Assist with Planning - ARC check
             window.assistWithPlanning = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -845,7 +845,7 @@ const questEvents = [
     
             // Stealth recovery using EVD check
             window.recoverGoodsStealth = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
     
                 if (evasionCheck) {
                     displayQuestResult(
@@ -865,7 +865,7 @@ const questEvents = [
     
             // Intimidation using STR check
             window.intimidateThieves = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
     
                 if (strengthCheck) {
                     displayQuestResult(
@@ -885,7 +885,7 @@ const questEvents = [
     
             // Persuasion using ARC check
             window.convinceThieves = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
     
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -946,7 +946,7 @@ const questEvents = [
 
             // Attempt to purify the water using ARC check
             window.purifyWater = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -966,7 +966,7 @@ const questEvents = [
             
             // Investigate the source of the poison using EVD check
             window.investigateSource = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 
                 if (evasionCheck) {
                     displayQuestResult(
@@ -986,7 +986,7 @@ const questEvents = [
             
             // Construct a filter using STR check
             window.constructFilter = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 
                 if (strengthCheck) {
                     displayQuestResult(
@@ -1063,7 +1063,7 @@ const questEvents = [
 
             // Search the area using EVD check
             window.searchArea = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 
                 if (evasionCheck) {
                     displayQuestResult(
@@ -1083,7 +1083,7 @@ const questEvents = [
 
             // Investigate tracks using ARC check
             window.investigateTracks = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -1103,7 +1103,7 @@ const questEvents = [
 
             // Wrangle livestock using STR check
             window.wrangleLivestock = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 
                 if (strengthCheck) {
                     displayQuestResult(
@@ -1144,7 +1144,7 @@ const questEvents = [
 
             // Sneak Closer - EVD Check
             document.getElementById('sneakButton').addEventListener('click', function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 if (evasionCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1161,7 +1161,7 @@ const questEvents = [
 
             // Analyze with Magic - ARC Check
             document.getElementById('magicButton').addEventListener('click', function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 if (arcaneCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1229,7 +1229,7 @@ const questEvents = [
 
             // Investigate symbols using ARC check
             window.investigateSymbols = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -1252,7 +1252,7 @@ const questEvents = [
 
             // Perform ritual using EVD check
             window.performRitual = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 
                 if (evasionCheck) {
                     displayQuestResult(
@@ -1274,7 +1274,7 @@ const questEvents = [
 
             // Destroy site using STR check
             window.destroySite = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 
                 if (strengthCheck) {
                     displayQuestResult(
@@ -1316,7 +1316,7 @@ const questEvents = [
 
             // Defend the merchant using STR check
             window.defendMerchant = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 
                 if (strengthCheck) {
                     displayQuestResult(
@@ -1337,7 +1337,7 @@ const questEvents = [
 
             // Guide the merchant using ARC check
             window.guideMerchant = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -1358,7 +1358,7 @@ const questEvents = [
 
             // Negotiate with bandits using LCK check
             window.negotiateBandits = function() {
-                const luckCheck = Math.random() < playerStats.LCK / 100;
+                const luckCheck = getRandom() < playerStats.LCK / 100;
                 
                 if (luckCheck) {
                     displayQuestResult(
@@ -1399,7 +1399,7 @@ const questEvents = [
 
             // Search for rare ingredients using EVD check
             window.searchIngredients = function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 
                 if (evasionCheck) {
                     displayQuestResult(
@@ -1419,7 +1419,7 @@ const questEvents = [
 
             // Gather the final ingredient using STR check
             window.gatherFinalIngredient = function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 
                 if (strengthCheck) {
                     displayQuestResult(
@@ -1439,7 +1439,7 @@ const questEvents = [
 
             // Prepare the cure using ARC check
             window.prepareCure = function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 
                 if (arcaneCheck) {
                     displayQuestResult(
@@ -1497,7 +1497,7 @@ const questEvents = [
 
             // Disarm the traps using EVD check
             document.getElementById('disarmTraps').addEventListener('click', function() {
-                const evasionCheck = Math.random() < playerStats.EVD / 100;
+                const evasionCheck = getRandom() < playerStats.EVD / 100;
                 if (evasionCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1514,7 +1514,7 @@ const questEvents = [
 
             // Retrieve the relic directly using STR check
             document.getElementById('retrieveRelic').addEventListener('click', function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 if (strengthCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1531,7 +1531,7 @@ const questEvents = [
 
             // Study the relic using ARC check
             document.getElementById('studyRelic').addEventListener('click', function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 if (arcaneCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1589,7 +1589,7 @@ const questEvents = [
 
             // Break the curse using ARC check
             document.getElementById('breakCurse').addEventListener('click', function() {
-                const arcaneCheck = Math.random() < playerStats.ARC / 100;
+                const arcaneCheck = getRandom() < playerStats.ARC / 100;
                 if (arcaneCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1606,7 +1606,7 @@ const questEvents = [
 
             // Endure the curse using STR check
             document.getElementById('endureCurse').addEventListener('click', function() {
-                const strengthCheck = Math.random() < playerStats.STR / 100;
+                const strengthCheck = getRandom() < playerStats.STR / 100;
                 if (strengthCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1628,7 +1628,7 @@ const questEvents = [
 
             // Dispel the curse using LCK check
             document.getElementById('dispelCurse').addEventListener('click', function() {
-                const luckCheck = Math.random() < playerStats.LCK / 100;
+                const luckCheck = getRandom() < playerStats.LCK / 100;
                 if (luckCheck) {
                     displayQuestResult(
                         relatedQuestName,
@@ -1827,7 +1827,7 @@ function getRandomEvent(terrain) {
     const filteredEvents = events.filter(event => event.terrain.includes(terrain));
 
     if (!playerStats.activeQuests || playerStats.activeQuests.length === 0) {
-        return filteredEvents.length > 0 ? filteredEvents[Math.floor(Math.random() * filteredEvents.length)] : null;
+        return filteredEvents.length > 0 ? filteredEvents[Math.floor(getRandom() * filteredEvents.length)] : null;
     }
 
     const activeQuestTitles = playerStats.activeQuests.map(quest => quest.title);
@@ -1838,7 +1838,7 @@ function getRandomEvent(terrain) {
 
     const combinedEvents = [...filteredEvents, ...questFilteredEvents];
 
-    return combinedEvents.length > 0 ? combinedEvents[Math.floor(Math.random() * combinedEvents.length)] : null;
+    return combinedEvents.length > 0 ? combinedEvents[Math.floor(getRandom() * combinedEvents.length)] : null;
 }
 
 function getRandomEventFromDungeon(terrain) {
@@ -1865,7 +1865,7 @@ function getRandomEventFromDungeon(terrain) {
     }
 
     const totalWeight = combinedEvents.reduce((sum, event) => sum + (event.weight || 1), 0);
-    let randomWeight = Math.random() * totalWeight;
+    let randomWeight = getRandom() * totalWeight;
 
     for (let event of combinedEvents) {
         randomWeight -= event.weight;
@@ -1968,7 +1968,7 @@ function augmentEquipmentFromEvent(slot, requiredItemName, requiredQuantity) {
 }
 
 function calculateEventEffect(baseAmount, type) {
-    const luckRoll = Math.random(); // A roll between 0 and 1
+    const luckRoll = getRandom(); // A roll between 0 and 1
     const luckThreshold = playerStats.LCK / 100; // Assuming LCK is out of 100
     let result = 'pass';
 

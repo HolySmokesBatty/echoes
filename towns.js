@@ -46,31 +46,31 @@ const townDescriptions = [
 ];
 
 function getRandomLocations(number) {
-    const shuffledLocations = allLocations.sort(() => 0.5 - Math.random());
+    const shuffledLocations = allLocations.sort(() => 0.5 - getRandom());
     return shuffledLocations.slice(0, number);
 }
 
 function getRandomTown() {
-    const prefix = townPrefixes[Math.floor(Math.random() * townPrefixes.length)];
-    const suffix = townSuffixes[Math.floor(Math.random() * townSuffixes.length)];
-    const size = Math.random();
+    const prefix = townPrefixes[Math.floor(getRandom() * townPrefixes.length)];
+    const suffix = townSuffixes[Math.floor(getRandom() * townSuffixes.length)];
+    const size = getRandom();
 
     let townName = `${prefix}${suffix}`;
     let townType;
     let locations;
 
     if (size < 0.33) {
-        townType = smallTownNames[Math.floor(Math.random() * smallTownNames.length)];
+        townType = smallTownNames[Math.floor(getRandom() * smallTownNames.length)];
         locations = getRandomLocations(3);
     } else if (size < 0.66) {
-        townType = mediumTownNames[Math.floor(Math.random() * mediumTownNames.length)];
+        townType = mediumTownNames[Math.floor(getRandom() * mediumTownNames.length)];
         locations = getRandomLocations(5);
     } else {
-        townType = largeTownNames[Math.floor(Math.random() * largeTownNames.length)];
+        townType = largeTownNames[Math.floor(getRandom() * largeTownNames.length)];
         locations = getRandomLocations(7);
     }
 
-    const descriptionTemplate = townDescriptions[Math.floor(Math.random() * townDescriptions.length)];
+    const descriptionTemplate = townDescriptions[Math.floor(getRandom() * townDescriptions.length)];
     const description = descriptionTemplate.replace('${townName}', townName).replace('${townType}', townType);
 
     return {
@@ -82,7 +82,7 @@ function getRandomTown() {
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(getRandom() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
