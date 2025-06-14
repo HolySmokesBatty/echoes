@@ -125,6 +125,62 @@ function executeEventEffect(event) {
             }
             break;
         }
+        case 'find': {
+            displayEventEffect(event.name, event.description, 'You found what you were looking for.');
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'build': {
+            playerStats.coins = (playerStats.coins || 0) + 10;
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, 'Your efforts were rewarded with 10 coins.');
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'cure': {
+            playerStats.HP = Math.min((playerStats.HP || 0) + 5, playerStats.maxHP);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, 'You helped create a cure and feel invigorated.');
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'purify': {
+            playerStats.AP = Math.min((playerStats.AP || 0) + 5, playerStats.maxAP);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, 'You purified the source and gained some energy.');
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'recover': {
+            playerStats.coins = (playerStats.coins || 0) + 5;
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, 'You recovered the goods and received 5 coins.');
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'curse': {
+            playerStats.AP = Math.max((playerStats.AP || 0) - 5, 0);
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, 'A dark curse weakens you.');
+            break;
+        }
+        case 'escort': {
+            playerStats.coins = (playerStats.coins || 0) + 15;
+            updatePlayerStats(playerStats);
+            displayEventEffect(event.name, event.description, 'The escort was successful and you earned 15 coins.');
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'relic': {
+            combat.startCombat();
+            checkQuestCompletion(event);
+            break;
+        }
+        case 'ritual': {
+            combat.startCombat();
+            checkQuestCompletion(event);
+            break;
+        }
         case 'augment gear': {
             if (typeof confirmAugmentEquipmentWithItems === 'function') {
                 confirmAugmentEquipmentWithItems('weapon');
@@ -142,7 +198,7 @@ function executeEventEffect(event) {
         default:
             displayEventEffect(event.name, event.description, 'Nothing happens.');
     }
-    if (event.relatedQuest) {
+    if (event.relatedQuest && !['find','build','cure','purify','recover','escort','relic','ritual'].includes(effect)) {
         checkQuestCompletion(event);
     }
 }

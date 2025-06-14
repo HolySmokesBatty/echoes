@@ -184,4 +184,33 @@ describe('executeEventEffect', () => {
 
         expect(context.promptLoseCoinsOrCombat).toHaveBeenCalledWith(10, event);
     });
+
+    test('find effect completes quest', () => {
+        const seedSrc = fs.readFileSync(path.join(__dirname, '../seedrandom.min.js'), 'utf8');
+        const utilsSrc = fs.readFileSync(path.join(__dirname, '../utils.js'), 'utf8');
+        const eventsSrc = fs.readFileSync(path.join(__dirname, '../events.js'), 'utf8') +
+            '\n;globalThis.executeEventEffect = executeEventEffect;';
+
+        const context = {
+            console,
+            EVENTS_DATA: { events: [], dungeonEvents: [], questEvents: [] },
+            document: { getElementById: () => ({ style: {}, innerHTML: '' }) },
+            playerStats: { coins: 0, activeQuests: [{ title: 'Lost Necklace', completed: false }] }
+        };
+
+        vm.createContext(context);
+        vm.runInContext(seedSrc, context);
+        vm.runInContext(utilsSrc, context);
+        vm.runInContext(eventsSrc, context);
+
+        context.updatePlayerStats = jest.fn();
+        context.displayEventEffect = jest.fn();
+        context.checkQuestCompletion = jest.fn();
+
+        const event = { name: 'Lost Necklace', description: 'A necklace glints.', effect: 'find', relatedQuest: 'Lost Necklace' };
+        context.executeEventEffect(event);
+
+        expect(context.displayEventEffect).toHaveBeenCalled();
+        expect(context.checkQuestCompletion).toHaveBeenCalledWith(event);
+    });
 });
