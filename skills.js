@@ -6,9 +6,9 @@ const skills = {
             cost: 8,
             level: 1,
             execute(player, enemy) {
-                const damage = Math.floor(player.STR * 1.2);
+                const damage = Math.floor(combat.getModifiedStat(player, 'STR') * 1.2);
                 const stunChance = 0.2;
-                const criticalHitChance = Math.min(player.LCK / 100, 0.5);
+                const criticalHitChance = Math.min(combat.getModifiedStat(player, 'LCK') / 100, 0.5);
                 const isCritical = Math.random() < criticalHitChance;
                 
                 let message = `You bash the enemy with your shield for ${damage} damage.`;
@@ -31,7 +31,7 @@ const skills = {
             level: 5,
             description: "A powerful, focused strike that deals significant damage to the target.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.STR * 2);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 2);
                 return { damage, message: `Cleave deals ${damage} damage to the enemy.` };
             }
         },
@@ -51,9 +51,9 @@ const skills = {
             level: 15,
             description: "A precise strike that exploits an enemy's weak point, increasing critical hit chance.",
             execute: (player, enemy) => {
-                let damage = Math.round(player.STR * 1.5);
+                let damage = Math.round(combat.getModifiedStat(player, 'STR') * 1.5);
                 const criticalBonus = 0.6;
-                const isCritical = Math.random() < (criticalBonus + (player.LCK / 100));
+                const isCritical = Math.random() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
                 if (isCritical) {
                     damage *= 2;
                 }
@@ -66,7 +66,7 @@ const skills = {
             level: 20,
             description: "A heavily charged attack that breaks through enemy defenses.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.STR * 2.2);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 2.2);
                 combat.applyEffect('Reduce DEF', enemy, 2);
                 return { damage, message: `Power Strike deals ${damage} damage and reduces enemy defense by 20% for 2 turns.` };
             }
@@ -77,7 +77,7 @@ const skills = {
             level: 25,
             description: "Creates a protective shield around themselves, absorbing incoming damage.",
             execute: (player, enemy) => {
-                const shieldAmount = Math.round(player.STR * 0.6);
+                const shieldAmount = Math.round(combat.getModifiedStat(player, 'STR') * 0.6);
                 player.shield = shieldAmount;
                 return { damage: 0, message: `Guardian Shield absorbs up to ${shieldAmount} damage.` };
             }
@@ -90,7 +90,7 @@ const skills = {
             cost: 7,
             level: 1,
             execute(player, enemy) {
-                const damage = Math.floor(player.STR * 0.8) * 2;
+                const damage = Math.floor(combat.getModifiedStat(player, 'STR') * 0.8) * 2;
                 return { damage, message: `You strike the enemy twice for a total of ${damage} damage.` };
             }
         },
@@ -100,7 +100,7 @@ const skills = {
             level: 5,
             description: "A precise attack that targets a vital point, bypassing the enemy's defenses.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.STR * 1.5);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 1.5);
                 return { damage, message: `Backstab deals ${damage} damage and ignores enemy defense.` };
             }
         },
@@ -120,7 +120,7 @@ const skills = {
             level: 15,
             description: "The Rogue coats their weapon in poison, increasing damage taken for a time.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.STR * 1.5);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 1.5);
                 combat.applyEffect('Poison', enemy, 3);
                 return { damage, message: `Poison Strike deals ${damage} damage and poisons the enemy for 3 turns.` };
             }
@@ -132,7 +132,7 @@ const skills = {
             description: "The Rogue vanishes into the shadows, avoiding the next attack and reappearing behind the enemy for a surprise strike.",
             execute: (player, enemy) => {
                 combat.applyEffect('Evasion', player, 1);
-                const damage = Math.round(player.STR * 2);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 2);
                 return { damage, message: `Shadowstep evades the next attack and deals ${damage} damage on the next turn.` };
             }
         },
@@ -142,9 +142,9 @@ const skills = {
             level: 25,
             description: "The Rogue attempts a critical strike aimed at the enemy's vital points, with a high chance of landing a critical hit.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.STR * 2);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 2);
                 const criticalBonus = 0.75;
-                const isCritical = Math.random() < (criticalBonus + (player.LCK / 100));
+                const isCritical = Math.random() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
                 const finalDamage = isCritical ? damage * 2 : damage;
                 return { damage: finalDamage, message: `Assassinate deals ${finalDamage} damage with ${isCritical ? "a critical hit" : "no critical hit"}.` };
             }
@@ -157,7 +157,7 @@ const skills = {
             cost: 8,
             level: 1,
             execute(player, enemy) {
-                const damage = Math.floor(player.ARC * 1.2);
+                const damage = Math.floor(combat.getModifiedStat(player, 'ARC') * 1.2);
                 const burnChance = 0.5;
                 let message = `You hurl a fireball at the enemy for ${damage} damage.`;
                 if (Math.random() < burnChance) {
@@ -173,7 +173,7 @@ const skills = {
             level: 5,
             description: "A sharp icicle is conjured and hurled at the enemy, dealing damage and reducing their defense.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.ARC * 1.5);
+                const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 1.5);
                 combat.applyEffect('Reduce DEF', enemy, 2);
                 return { damage, message: `Ice Spike deals ${damage} damage and reduces enemy defense by 20% for 2 turns.` };
             }
@@ -194,7 +194,7 @@ const skills = {
             level: 15,
             description: "A powerful bolt of lightning strikes the enemy, dealing high damage with a chance to paralyze.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.ARC * 1.5);
+                const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 1.5);
                 const isStunned = Math.random() < 0.5;
                 if (isStunned) {
                     combat.applyEffect('Stun', enemy, 1);
@@ -208,7 +208,7 @@ const skills = {
             level: 20,
             description: "The Mage siphons energy from the enemy, dealing damage and restoring their own Arcane Points.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.ARC * 1.5);
+                const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 1.5);
                 const apRestored = Math.round(damage * 0.5);
                 player.AP = Math.min(player.AP + apRestored, player.maxAP);
                 return { damage, message: `Arcana Drain deals ${damage} damage and restores ${apRestored} AP to the Mage.` };
@@ -220,7 +220,7 @@ const skills = {
             level: 25,
             description: "The Mage calls down a massive meteor to strike the enemy, dealing devastating damage.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.ARC * 2);
+                const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 2);
                 const isBurned = Math.random() < 0.5;
                 if (isBurned) {
                     combat.applyEffect('Burn', enemy, 3);
@@ -236,7 +236,7 @@ const skills = {
             level: 1,
             description: "A powerful strike infused with holy energy.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.STR * 1.2 + player.ARC);
+                const damage = Math.round(combat.getModifiedStat(player, 'STR') * 1.2 + combat.getModifiedStat(player, 'ARC'));
                 return { damage, message: `Holy Strike deals ${damage} damage to the enemy.` };
             }
         },
@@ -246,7 +246,7 @@ const skills = {
             cost: 15,
             level: 5,
             execute(player) {
-                const healAmount = Math.floor(player.ARC * 1.5);
+                const healAmount = Math.floor(combat.getModifiedStat(player, 'ARC') * 1.5);
                 player.HP = Math.min(player.HP + healAmount, player.maxHP);
                 return { damage: 0, message: `You heal yourself for ${healAmount} HP.` };
             }
@@ -267,7 +267,7 @@ const skills = {
             level: 15,
             description: "A powerful heal.",
             execute: (player) => {
-                const healAmount = Math.round(player.ARC * 2.5 + player.maxHP * 0.2);
+                const healAmount = Math.round(combat.getModifiedStat(player, 'ARC') * 2.5 + player.maxHP * 0.2);
                 player.HP = Math.min(player.HP + healAmount, player.maxHP);
                 return { damage: 0, message: `Purity restores ${healAmount} HP to the player.` };
             }
@@ -278,9 +278,9 @@ const skills = {
             level: 20,
             description: "A divine strike that deals damage and has a high chance to critically hit.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.ARC * 1.5);
+                const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 1.5);
                 const criticalBonus = 0.75;
-                const isCritical = Math.random() < (criticalBonus + (player.LCK / 100));
+                const isCritical = Math.random() < (criticalBonus + (combat.getModifiedStat(player, 'LCK') / 100));
                 const finalDamage = isCritical ? damage * 2 : damage;
                 return { damage: finalDamage, message: `Righteous Fury deals ${finalDamage} damage with ${isCritical ? "a critical hit" : "no critical hit"}.` };
             }
@@ -291,7 +291,7 @@ const skills = {
             level: 25,
             description: "The Cleric calls down a divine judgment on the enemy, dealing massive damage with a chance to stun.",
             execute: (player, enemy) => {
-                const damage = Math.round(player.ARC * 2);
+                const damage = Math.round(combat.getModifiedStat(player, 'ARC') * 2);
                 const isStunned = Math.random() < 0.5;
                 if (isStunned) {
                     combat.applyEffect('Stun', enemy, 1);

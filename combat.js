@@ -6,10 +6,21 @@ const combat = {
     activeEffects: { player: [], enemy: [] },
     activeQuest: null,
 
+    getModifiedStat(target, stat) {
+        return (target[stat] || 0) + (target.modifiers?.[stat] || 0);
+    },
+
+    adjustModifier(target, stat, amount) {
+        if (!target.modifiers) target.modifiers = {};
+        target.modifiers[stat] = (target.modifiers[stat] || 0) + amount;
+    },
+
     // Initialization and Setup
     initialize(player, enemy, quest = null) {
         this.player = player;
+        if (!this.player.modifiers) this.player.modifiers = {};
         this.enemy = { ...enemy };
+        this.enemy.modifiers = {};
         this.combatLog = [];
         this.isInCombat = true;
         this.activeEffects = { player: [], enemy: [] };
@@ -318,7 +329,7 @@ const combat = {
     },
 
     run() {
-        const runSuccessChance = Math.min(0.5 + this.player.LCK / 100, 0.9);
+        const runSuccessChance = Math.min(0.5 + this.getModifiedStat(this.player, 'LCK') / 100, 0.9);
         if (Math.random() < runSuccessChance) {
             this.endCombat("You successfully escaped the battle!");
             lastEventTriggered = 'scene';
@@ -337,13 +348,15 @@ const combat = {
     },
 
     calculateDamage(attacker, defender, isMagic = false, isSkill = false) {
-        const baseAttack = isMagic ? attacker.ARC : attacker.STR;
-        const defense = isMagic ? defender.ARC : defender.DEF;
+        const baseAttackStat = isMagic ? 'ARC' : 'STR';
+        const defenseStat = isMagic ? 'ARC' : 'DEF';
+        const baseAttack = this.getModifiedStat(attacker, baseAttackStat);
+        const defense = this.getModifiedStat(defender, defenseStat);
         const randomFactor = Math.random() * 0.2 + 0.9;
-        const criticalHitChance = Math.min(attacker.LCK / 100, 0.5);
+        const criticalHitChance = Math.min(this.getModifiedStat(attacker, 'LCK') / 100, 0.5);
         const isCriticalHit = Math.random() < criticalHitChance;
         const criticalHitMultiplier = isCriticalHit ? 2.0 : 1.0;
-        const evasionChance = defender.EVD / 100;
+        const evasionChance = this.getModifiedStat(defender, 'EVD') / 100;
 
         if (Math.random() < evasionChance && !isSkill) {
             return { damage: 0, evaded: true, critical: false };
@@ -372,14 +385,18 @@ const combat = {
                 target.isStunned = true;
                 message = `${target.name} is stunned!`;
                 break;
-            case 'Reduce DEF':
-                target.DEF = Math.floor(target.DEF * 0.8);
+            case 'Reduce DEF': {
+                const amount = Math.floor(target.DEF * 0.2);
+                this.adjustModifier(target, 'DEF', -amount);
                 message = `${target.name}'s defense is reduced!`;
                 break;
-            case 'Increase DEF':
-                target.DEF = Math.floor(target.DEF * 1.5);
+            }
+            case 'Increase DEF': {
+                const amount = Math.floor(target.DEF * 0.5);
+                this.adjustModifier(target, 'DEF', amount);
                 message = `${target.name}'s defense is increased!`;
                 break;
+            }
             case 'Poison':
                 target.isPoisoned = true;
                 message = `${target.name} is poisoned!`;
@@ -388,10 +405,12 @@ const combat = {
                 target.isBurned = true;
                 message = `${target.name} is burning!`;
                 break;
-            case 'Evasion':
-                target.EVD = Math.floor(target.EVD * 1.5);
+            case 'Evasion': {
+                const amount = Math.floor(target.EVD * 0.5);
+                this.adjustModifier(target, 'EVD', amount);
                 message = `${target.name}'s evasion is increased!`;
                 break;
+            }
             default:
                 message = `${effect} applied to ${target.name}.`;
                 break;
@@ -445,18 +464,24 @@ const combat = {
                 target.isPoisoned = false;
                 this.appendCombatMessage(`${target.name} is no longer poisoned.`);
                 break;
-            case 'Increase DEF':
-                target.DEF = Math.floor(target.DEF / 1.5);
+            case 'Increase DEF': {
+                const amount = Math.floor(target.DEF * 0.5);
+                this.adjustModifier(target, 'DEF', -amount);
                 this.appendCombatMessage(`${target.name}'s defense returns to normal.`);
                 break;
-            case 'Reduce DEF':
-                target.DEF = Math.floor(target.DEF / 0.8);
+            }
+            case 'Reduce DEF': {
+                const amount = Math.floor(target.DEF * 0.2);
+                this.adjustModifier(target, 'DEF', amount);
                 this.appendCombatMessage(`${target.name}'s defense returns to normal.`);
                 break;
-            case 'Evasion':
-                target.EVD = Math.floor(target.EVD / 1.5);
+            }
+            case 'Evasion': {
+                const amount = Math.floor(target.EVD * 0.5);
+                this.adjustModifier(target, 'EVD', -amount);
                 this.appendCombatMessage(`${target.name}'s evasion returns to normal.`);
                 break;
+            }
         }
     },
 

@@ -277,6 +277,7 @@ function initializePlayerStats(playerName, playerClass = null) {
         class: playerClass,
         skills: playerSkills, // Assign skills to the player
         growth: classStats, // Include the growth arrays
+        modifiers: {},
         activeQuests: [], // Initialize active quests
         steps: 0 // Initialize the step counter
     };
@@ -479,6 +480,7 @@ function showSkills() {
 
 function getStatsContent() {
     const playerStats = getPlayerStats();
+    const mods = playerStats.modifiers || {};
     return `
         <div class="left-justify">
             <h2>Stats</h2>
@@ -486,11 +488,11 @@ function getStatsContent() {
                 <li>Class: ${playerClass}</li>
                 <li>HP: ${playerStats.maxHP}</li>
                 <li>AP: ${playerStats.maxAP}</li>
-                <li>STR: ${playerStats.STR}</li>
-                <li>DEF: ${playerStats.DEF}</li>
-                <li>ARC: ${playerStats.ARC}</li>
-                <li>EVD: ${playerStats.EVD}</li>
-                <li>LCK: ${playerStats.LCK}</li>
+                <li>STR: ${playerStats.STR + (mods.STR || 0)}</li>
+                <li>DEF: ${playerStats.DEF + (mods.DEF || 0)}</li>
+                <li>ARC: ${playerStats.ARC + (mods.ARC || 0)}</li>
+                <li>EVD: ${playerStats.EVD + (mods.EVD || 0)}</li>
+                <li>LCK: ${playerStats.LCK + (mods.LCK || 0)}</li>
                 <li>To Next Level: ${playerStats.nextLevelXp - playerStats.xp}</li>
             </ul>
         </div>
