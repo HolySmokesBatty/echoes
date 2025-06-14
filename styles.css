@@ -5,7 +5,7 @@ html {
 
 @font-face {
     font-family: 'HolySmokesBatty';
-    src: url('files/holysmokesbatty.ttf') format('truetype');
+    src: url('holysmokesbatty.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
