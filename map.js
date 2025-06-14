@@ -406,6 +406,12 @@ function promptDungeonEntry(dungeonId) {
     console.log("Dungeon entry prompt displayed successfully");
 }
 
+function declineDungeonEntry() {
+    displayMap();
+    updateMovementButtons();
+    resetControlButtons();
+}
+
 function displayScene(x, y) {
     const contentWindow = document.getElementById('content-window');
     const storedScene = scenesArray[y][x];
